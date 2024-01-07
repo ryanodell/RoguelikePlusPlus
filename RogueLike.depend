@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1704664363 source:c:\users\user\documents\repo\cpp\roguelike\main.cpp
+	<iostream>
+	<windows.h>
+	<conio.h>
+
