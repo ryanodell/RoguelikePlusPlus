@@ -1,9 +1,6 @@
 #include "Game.h"
 #include <iostream>
 
-enum eInputAction {
-    NONE, UP, DOWN, LEFT, RIGHT
-};
 
 eInputAction inputAction;
 
@@ -45,7 +42,9 @@ bool Game::IsRunning() {
 }
 
 void Game::OnLoad() {
-    //consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    GetConsoleCursorInfo(consoleHandle, &consoleInfo);
+    consoleInfo.bVisible = false;
 }
 
 void Game::Update(int frame) {
@@ -66,11 +65,7 @@ void Game::Update(int frame) {
 
 
 void Game::EndFrame() {
-    HANDLE consoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO consoleInfo;
-    GetConsoleCursorInfo(consoleOut, &consoleInfo);
-    consoleInfo.bVisible = false;
-    SetConsoleCursorInfo(consoleOut, &consoleInfo);
+    SetConsoleCursorInfo(consoleHandle, &consoleInfo);
 }
 
 

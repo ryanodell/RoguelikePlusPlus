@@ -3,6 +3,7 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
+#include "Enums.h"
 
 class Game {
 public:
@@ -20,7 +21,8 @@ private:
     void clearScreen();
     void handleInput();
     bool isRunning;
-    //Handle consoleHandle;
+    HANDLE consoleHandle;
+    CONSOLE_CURSOR_INFO consoleInfo;
 };
 
 #endif // GAME_H_INCLUDED

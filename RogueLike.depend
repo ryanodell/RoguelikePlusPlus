@@ -5,12 +5,15 @@
 	<windows.h>
 	<conio.h>
 
-1704756005 source:c:\users\user\documents\repo\cpp\roguelike\game.cpp
+1704757514 source:c:\users\user\documents\repo\cpp\roguelike\game.cpp
 	"Game.h"
 	<iostream>
 
-1704756773 c:\users\user\documents\repo\cpp\roguelike\game.h
+1704757536 c:\users\user\documents\repo\cpp\roguelike\game.h
 	<iostream>
 	<windows.h>
 	<conio.h>
+	"Enums.h"
+
+1704757518 c:\users\user\documents\repo\cpp\roguelike\enums.h
 
