@@ -1,3 +1,25 @@
+#include "Game.h"
+bool isRunning = true;
+int currentFrame = 1;
+
+int main() {
+    Game game(50, 20);
+    game.OnLoad();
+    while(isRunning) {
+        game.Update(currentFrame);
+        game.Draw(currentFrame);
+        currentFrame++;
+        HANDLE consoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
+        CONSOLE_CURSOR_INFO consoleInfo;
+        GetConsoleCursorInfo(consoleOut, &consoleInfo);
+        consoleInfo.bVisible = false;
+        SetConsoleCursorInfo(consoleOut, &consoleInfo);
+    }
+
+    return 0;
+}
+
+/*
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
@@ -59,9 +81,6 @@ void Init() {
 
 void Draw() {
     ClearScreen();
-
-    //Original - Don't delete
-
     //top border
     for (int i = 0; i < Width + 2; i++) {
         std::cout << '-';
@@ -130,3 +149,4 @@ int main() {
     }
     return 0;
 }
+*/
