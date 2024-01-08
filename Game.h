@@ -13,12 +13,14 @@ public:
     void Draw(int frame);
     int PlayerX, PlayerY;
     bool IsRunning();
+    void EndFrame();
 private:
     int Width;
     int Height;
     void clearScreen();
     void handleInput();
     bool isRunning;
+    //Handle consoleHandle;
 };
 
 #endif // GAME_H_INCLUDED

@@ -9,11 +9,7 @@ int main() {
         game.Update(currentFrame);
         game.Draw(currentFrame);
         currentFrame++;
-        HANDLE consoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
-        CONSOLE_CURSOR_INFO consoleInfo;
-        GetConsoleCursorInfo(consoleOut, &consoleInfo);
-        consoleInfo.bVisible = false;
-        SetConsoleCursorInfo(consoleOut, &consoleInfo);
+        game.EndFrame();
     }
 
     return 0;

@@ -45,7 +45,7 @@ bool Game::IsRunning() {
 }
 
 void Game::OnLoad() {
-
+    //consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
 void Game::Update(int frame) {
@@ -64,6 +64,14 @@ void Game::Update(int frame) {
     };
 }
 
+
+void Game::EndFrame() {
+    HANDLE consoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO consoleInfo;
+    GetConsoleCursorInfo(consoleOut, &consoleInfo);
+    consoleInfo.bVisible = false;
+    SetConsoleCursorInfo(consoleOut, &consoleInfo);
+}
 
 
 void Game::Draw(int frame) {
