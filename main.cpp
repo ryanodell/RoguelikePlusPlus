@@ -5,7 +5,7 @@ int currentFrame = 1;
 int main() {
     Game game(50, 20);
     game.OnLoad();
-    while(isRunning) {
+    while(game.IsRunning()) {
         game.Update(currentFrame);
         game.Draw(currentFrame);
         currentFrame++;

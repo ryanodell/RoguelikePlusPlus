@@ -1,7 +1,6 @@
 #include "Game.h"
 #include <iostream>
 
-
 enum eInputAction {
     NONE, UP, DOWN, LEFT, RIGHT
 };
@@ -14,23 +13,22 @@ void Game::handleInput() {
         //pause execution
     }
     key = _getch();
-    switch (key)
-    {
-    case 'w':
-        inputAction = UP;
-        break;
-    case 'a':
-        inputAction = LEFT;
-        break;
-    case 's':
-        inputAction = DOWN;
-        break;
-    case 'd':
-        inputAction = RIGHT;
-        break;
-    case 'k':
-        //isRunning = false;
-        break;
+    switch (key) {
+        case 'w':
+            inputAction = UP;
+            break;
+        case 'a':
+            inputAction = LEFT;
+            break;
+        case 's':
+            inputAction = DOWN;
+            break;
+        case 'd':
+            inputAction = RIGHT;
+            break;
+        case 'k':
+            isRunning = false;
+            break;
     }
 }
 
@@ -39,6 +37,11 @@ Game::Game(int width, int height) {
     Height = height;
     PlayerX = 3;
     PlayerY = 3;
+    isRunning = true;
+}
+
+bool Game::IsRunning() {
+    return isRunning;
 }
 
 void Game::OnLoad() {

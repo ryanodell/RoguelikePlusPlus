@@ -12,11 +12,13 @@ public:
     void Update(int frame);
     void Draw(int frame);
     int PlayerX, PlayerY;
+    bool IsRunning();
 private:
     int Width;
     int Height;
     void clearScreen();
     void handleInput();
+    bool isRunning;
 };
 
 #endif // GAME_H_INCLUDED
