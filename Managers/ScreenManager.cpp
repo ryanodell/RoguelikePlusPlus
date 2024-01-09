@@ -1,4 +1,3 @@
-
 #include "../ScreenManager.h"
 
 #include <iostream>
