@@ -1,8 +1,8 @@
 #include "Game.h"
 #include <iostream>
 
-
 eInputAction inputAction;
+
 
 void Game::handleInput() {
     char key = 0;
@@ -35,6 +35,7 @@ Game::Game(int width, int height) {
     PlayerX = 3;
     PlayerY = 3;
     isRunning = true;
+    //screenManager = ScreenManager::GetInstance();
 }
 
 bool Game::IsRunning() {
@@ -49,6 +50,7 @@ void Game::OnLoad() {
 
 void Game::Update(int frame) {
     handleInput();
+    ScreenManager::GetInstance().Update();
     if(inputAction == RIGHT) {
         PlayerX++;
     }

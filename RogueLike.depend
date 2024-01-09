@@ -5,15 +5,22 @@
 	<windows.h>
 	<conio.h>
 
-1704757514 source:c:\users\user\documents\repo\cpp\roguelike\game.cpp
+1704759912 source:c:\users\user\documents\repo\cpp\roguelike\game.cpp
 	"Game.h"
 	<iostream>
 
-1704757536 c:\users\user\documents\repo\cpp\roguelike\game.h
+1704759825 c:\users\user\documents\repo\cpp\roguelike\game.h
 	<iostream>
 	<windows.h>
 	<conio.h>
 	"Enums.h"
+	"ScreenManager.h"
 
 1704757518 c:\users\user\documents\repo\cpp\roguelike\enums.h
+
+1704759856 c:\users\user\documents\repo\cpp\roguelike\screenmanager.h
+
+1704759890 source:c:\users\user\documents\repo\cpp\roguelike\managers\screenmanager.cpp
+	"../ScreenManager.h"
+	<iostream>
 

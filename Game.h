@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <conio.h>
 #include "Enums.h"
+#include "ScreenManager.h"
 
 class Game {
 public:
