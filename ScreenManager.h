@@ -7,17 +7,17 @@ class ScreenManager {
 
 public:
     static ScreenManager& GetInstance();
-    static void OnLoad();
-    static void Update(int frame);
-    static void Draw(int frame);
-    void ChangeScreen(MainMenuScreen& screen);
+    void OnLoad();
+    void Update(int frame);
+    void Draw(int frame);
+    void ChangeScreen(ScreenBase& screen);
 
 private:
     ScreenManager();
     ScreenManager(const ScreenManager&) = delete;
     ScreenManager& operator =(const ScreenManager&) = delete;
     ~ScreenManager();
-    MainMenuScreen* tmp;
+    ScreenBase* currentScreen;
     //ScreenBase* currentScreen;
 };
 

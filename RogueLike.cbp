@@ -41,6 +41,10 @@
 		<Unit filename="ScreenManager.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="Screens/MainMenuScreen.cpp" />
+		<Unit filename="Screens/MainMenuScreen.h" />
+		<Unit filename="Screens/ScreenBase.cpp" />
+		<Unit filename="Screens/ScreenBase.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

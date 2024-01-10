@@ -4,6 +4,7 @@
 
 eInputAction inputAction;
 
+MainMenuScreen mainMenuScreen;
 
 void Game::handleInput() {
     char key = 0;
@@ -36,7 +37,6 @@ Game::Game(int width, int height) {
     PlayerX = 3;
     PlayerY = 3;
     isRunning = true;
-    //screenManager = ScreenManager::GetInstance();
 }
 
 bool Game::IsRunning() {
@@ -47,6 +47,7 @@ void Game::OnLoad() {
     consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleCursorInfo(consoleHandle, &consoleInfo);
     consoleInfo.bVisible = false;
+    ScreenManager::GetInstance().ChangeScreen(mainMenuScreen);
 }
 
 void Game::Update(int frame) {

@@ -8,16 +8,16 @@ ScreenManager& ScreenManager::GetInstance() {
 }
 
 void ScreenManager::Update(int frame) {
-    std::cout << "Fuck you" << std::endl;
+    currentScreen->Update(frame);
 }
 
 void ScreenManager::Draw(int frame) {
-
+    currentScreen->Draw(frame);
 }
 
-void ScreenManager::ChangeScreen(MainMenuScreen& screen) {
-    tmp = &screen;
-    screen.OnLoad();
+void ScreenManager::ChangeScreen(ScreenBase& screen) {
+    currentScreen = &screen;
+    currentScreen->OnLoad();
 }
 
 ScreenManager::ScreenManager() {
