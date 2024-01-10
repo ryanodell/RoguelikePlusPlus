@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include "Screens/ScreenBase.h"
 
 eInputAction inputAction;
 
@@ -50,7 +51,7 @@ void Game::OnLoad() {
 
 void Game::Update(int frame) {
     handleInput();
-    ScreenManager::GetInstance().Update();
+    ScreenManager::GetInstance().Update(frame);
     if(inputAction == RIGHT) {
         PlayerX++;
     }
@@ -63,6 +64,7 @@ void Game::Update(int frame) {
     if(inputAction == UP) {
         PlayerY--;
     };
+
 }
 
 

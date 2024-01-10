@@ -7,8 +7,17 @@ ScreenManager& ScreenManager::GetInstance() {
     return instance;
 }
 
-void ScreenManager::Update() {
+void ScreenManager::Update(int frame) {
     std::cout << "Fuck you" << std::endl;
+}
+
+void ScreenManager::Draw(int frame) {
+
+}
+
+void ScreenManager::ChangeScreen(MainMenuScreen& screen) {
+    tmp = &screen;
+    screen.OnLoad();
 }
 
 ScreenManager::ScreenManager() {
