@@ -1,10 +1,14 @@
 #include "Game.h"
 #include <iostream>
 #include "Screens/ScreenBase.h"
+#include "Screens/OverworldScreen.h"
+#include "Globals.h"
 
 eInputAction inputAction;
 
 MainMenuScreen mainMenuScreen;
+OverworldScreen overworldScreen;
+
 
 void Game::handleInput() {
     char key = 0;
@@ -31,9 +35,7 @@ void Game::handleInput() {
     }
 }
 
-Game::Game(int width, int height) {
-    Width = width;
-    Height = height;
+Game::Game(int width, int height) : Width(width), Height(height) {
     PlayerX = 3;
     PlayerY = 3;
     isRunning = true;
@@ -51,8 +53,9 @@ void Game::OnLoad() {
 }
 
 void Game::Update(int frame) {
-    handleInput();
+    //handleInput();
     ScreenManager::GetInstance().Update(frame);
+    /*
     if(inputAction == RIGHT) {
         PlayerX++;
     }
@@ -65,7 +68,7 @@ void Game::Update(int frame) {
     if(inputAction == UP) {
         PlayerY--;
     };
-
+    */
 }
 
 
@@ -76,6 +79,8 @@ void Game::EndFrame() {
 
 void Game::Draw(int frame) {
     clearScreen();
+    ScreenManager::GetInstance().Draw(frame);
+    /*
     //top border
     for (int i = 0; i < Width + 2; i++) {
         std::cout << '-';
@@ -111,6 +116,7 @@ void Game::Draw(int frame) {
     std::cout << "Current Frame: " << frame << std::endl;
     std::cout << "X: " << PlayerX << std::endl;
     std::cout << "Y: " << PlayerY << std::endl;
+    */
 }
 
 void Game::clearScreen() {

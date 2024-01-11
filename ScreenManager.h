@@ -2,6 +2,7 @@
 #define SCREENMANAGER_H_INCLUDED
 #include "Screens/ScreenBase.h"
 #include "Screens/MainMenuScreen.h"
+#include "Globals.h"
 
 class ScreenManager {
 
@@ -11,7 +12,7 @@ public:
     void Update(int frame);
     void Draw(int frame);
     void ChangeScreen(ScreenBase& screen);
-
+    void ChangeScreen(const char* name);
 private:
     ScreenManager();
     ScreenManager(const ScreenManager&) = delete;

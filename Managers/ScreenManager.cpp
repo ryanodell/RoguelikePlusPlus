@@ -1,5 +1,4 @@
 #include "../ScreenManager.h"
-
 #include <iostream>
 
 ScreenManager& ScreenManager::GetInstance() {
@@ -16,8 +15,13 @@ void ScreenManager::Draw(int frame) {
 }
 
 void ScreenManager::ChangeScreen(ScreenBase& screen) {
+    //delete currentScreen;
     currentScreen = &screen;
     currentScreen->OnLoad();
+}
+
+void ScreenManager::ChangeScreen(const char* name) {
+
 }
 
 ScreenManager::ScreenManager() {

@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1704756211 source:c:\users\user\documents\repo\cpp\roguelike\main.cpp
+1704928732 source:c:\users\user\documents\repo\cpp\roguelike\main.cpp
 	"Game.h"
-	<iostream>
-	<windows.h>
-	<conio.h>
+	"Globals.h"
 
-1704908998 source:c:\users\user\documents\repo\cpp\roguelike\game.cpp
+1704930245 source:c:\users\user\documents\repo\cpp\roguelike\game.cpp
 	"Game.h"
 	<iostream>
 	"Screens/ScreenBase.h"
+	"Screens/OverworldScreen.h"
+	"Globals.h"
 
 1704846187 c:\users\user\documents\repo\cpp\roguelike\game.h
 	<iostream>
@@ -20,11 +20,12 @@
 
 1704757518 c:\users\user\documents\repo\cpp\roguelike\enums.h
 
-1704907662 c:\users\user\documents\repo\cpp\roguelike\screenmanager.h
+1704930917 c:\users\user\documents\repo\cpp\roguelike\screenmanager.h
 	"Screens/ScreenBase.h"
 	"Screens/MainMenuScreen.h"
+	"Globals.h"
 
-1704908896 source:c:\users\user\documents\repo\cpp\roguelike\managers\screenmanager.cpp
+1704930968 source:c:\users\user\documents\repo\cpp\roguelike\managers\screenmanager.cpp
 	"../ScreenManager.h"
 	<iostream>
 
@@ -36,10 +37,24 @@
 
 1704823167 c:\users\user\documents\repo\cpp\roguelike\screens\screenbase.h
 
-1704908582 source:c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.cpp
+1704930809 source:c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.cpp
+	"../ScreenManager.h"
 	"MainMenuScreen.h"
+	"OverworldScreen.h"
 	<iostream>
 
-1704823178 c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.h
+1704929199 c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.h
+	<windows.h>
+	<conio.h>
 	"ScreenBase.h"
+
+1704928958 source:c:\users\user\documents\repo\cpp\roguelike\screens\overworldscreen.cpp
+	"OverworldScreen.h"
+	"../Globals.h"
+
+1704928952 c:\users\user\documents\repo\cpp\roguelike\screens\overworldscreen.h
+	"ScreenBase.h"
+	<iostream>
+
+1704928675 c:\users\user\documents\repo\cpp\roguelike\globals.h
 

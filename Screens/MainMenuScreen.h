@@ -1,5 +1,7 @@
 #ifndef MAINMENUSCREEN_H_INCLUDED
 #define MAINMENUSCREEN_H_INCLUDED
+#include <windows.h>
+#include <conio.h>
 #include "ScreenBase.h"
 
 class MainMenuScreen : public ScreenBase {
