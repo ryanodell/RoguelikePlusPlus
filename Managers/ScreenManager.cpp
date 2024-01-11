@@ -1,5 +1,11 @@
 #include "../ScreenManager.h"
+
+
+
 #include <iostream>
+MainMenuScreen mainMenuScreen;
+OverworldScreen overworldScreen;
+
 
 ScreenManager& ScreenManager::GetInstance() {
     static ScreenManager instance; // The single instance is created only once
@@ -21,7 +27,15 @@ void ScreenManager::ChangeScreen(ScreenBase& screen) {
 }
 
 void ScreenManager::ChangeScreen(const char* name) {
-
+    if(strcmp(name, "mainMenu") == 0) {
+        std::cout << "main" << std::endl;
+        currentScreen = &mainMenuScreen;
+    }
+    if(strcmp(name, "overworld") == 0) {
+        std::cout << "overworld" << std::endl;
+        currentScreen = &overworldScreen;
+    }
+    currentScreen->OnLoad();
 }
 
 ScreenManager::ScreenManager() {

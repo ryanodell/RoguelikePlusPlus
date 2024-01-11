@@ -37,13 +37,19 @@
 		</Unit>
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
+		<Unit filename="Globals.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Managers/ScreenManager.cpp" />
 		<Unit filename="ScreenManager.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Screens/MainMenuScreen.cpp" />
 		<Unit filename="Screens/MainMenuScreen.h" />
-		<Unit filename="Screens/ScreenBase.cpp" />
+		<Unit filename="Screens/OverworldScreen.cpp" />
+		<Unit filename="Screens/OverworldScreen.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Screens/ScreenBase.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

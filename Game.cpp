@@ -5,10 +5,10 @@
 #include "Globals.h"
 
 eInputAction inputAction;
-
+/*
 MainMenuScreen mainMenuScreen;
 OverworldScreen overworldScreen;
-
+*/
 
 void Game::handleInput() {
     char key = 0;
@@ -49,7 +49,7 @@ void Game::OnLoad() {
     consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleCursorInfo(consoleHandle, &consoleInfo);
     consoleInfo.bVisible = false;
-    ScreenManager::GetInstance().ChangeScreen(mainMenuScreen);
+    ScreenManager::GetInstance().ChangeScreen("mainMenu");
 }
 
 void Game::Update(int frame) {

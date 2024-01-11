@@ -7,6 +7,16 @@ int GameWidth = 50;
 int GameHeight = 20;
 
 int main() {
+    /*
+    const char* name = "test";
+    if(name == "test") {
+        std::cout << "Matches" << std::endl;
+    }
+    else {
+        std::cout << "Doens't match" << std::endl;
+    }
+    */
+
     Game game(GameWidth, GameHeight);
     game.OnLoad();
     while(game.IsRunning()) {
@@ -17,3 +27,4 @@ int main() {
     }
     return 0;
 }
+
