@@ -6,9 +6,9 @@ InputManager& InputManager::Get() {
 }
 
 eInputAction InputManager::IGetInput() {
-    char key = 0;
-    while (!_kbhit()) { }
-    key = getch();
+    //char key = 0;
+    //while (!_kbhit()) { }
+    char key = getch();
     switch (key) {
        case 'w':
            m_inputAction = UP;

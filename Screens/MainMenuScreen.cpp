@@ -17,6 +17,23 @@ void MainMenuScreen::Update(int frame) const {
 }
 
 void MainMenuScreen::Draw(int frame) const {
+    unsigned char color = 201;
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    //SetConsoleTextAttribute(hConsole, color);
+    //White
+    SetConsoleTextAttribute(hConsole,
+       FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
     std::cout << "Press any key to play:" << std::endl;
+    //Red
+    SetConsoleTextAttribute(hConsole,
+       FOREGROUND_RED|FOREGROUND_INTENSITY);
+    std::cout << "1";
+        //Blue
+    SetConsoleTextAttribute(hConsole,
+       FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+    std::cout << "2";
+    SetConsoleTextAttribute(hConsole,
+       FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
     firstFramePassed = true;
 }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
+
 class InputManager {
 public:
     InputManager(const InputManager&) = delete;

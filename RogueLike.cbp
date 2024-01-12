@@ -40,6 +40,10 @@
 		<Unit filename="Globals.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="Managers/InputManager.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Managers/InputManger.cpp" />
 		<Unit filename="Managers/ScreenManager.cpp" />
 		<Unit filename="ScreenManager.h">
 			<Option target="&lt;{~None~}&gt;" />

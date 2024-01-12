@@ -38,7 +38,7 @@
 
 1704823167 c:\users\user\documents\repo\cpp\roguelike\screens\screenbase.h
 
-1705019020 source:c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.cpp
+1705087860 source:c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.cpp
 	"../ScreenManager.h"
 	"MainMenuScreen.h"
 	"OverworldScreen.h"
@@ -61,12 +61,14 @@
 
 1704928675 c:\users\user\documents\repo\cpp\roguelike\globals.h
 
-1705018873 source:c:\users\user\documents\repo\cpp\roguelike\managers\inputmanger.cpp
+1705085017 source:c:\users\user\documents\repo\cpp\roguelike\managers\inputmanger.cpp
 	"InputManager.h"
 
-1705018490 c:\users\user\documents\repo\cpp\roguelike\managers\inputmanager.h
+1705084947 c:\users\user\documents\repo\cpp\roguelike\managers\inputmanager.h
 	"../Enums.h"
 	<iostream>
 	<windows.h>
 	<conio.h>
+
+1705085775 source:c:\users\user\documents\repo\cpp\roguelike\managers\rendermanager.cpp
 
