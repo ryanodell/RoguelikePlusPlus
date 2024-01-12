@@ -33,6 +33,11 @@ void MainMenuScreen::Draw(int frame) const {
     SetConsoleTextAttribute(hConsole,
        FOREGROUND_BLUE | FOREGROUND_INTENSITY);
     std::cout << "2";
+
+    //Green-ish
+    unsigned char greenish = FOREGROUND_GREEN|FOREGROUND_INTENSITY;
+    SetConsoleTextAttribute(hConsole,greenish);
+    std::cout << "3";
     SetConsoleTextAttribute(hConsole,
        FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
     firstFramePassed = true;
