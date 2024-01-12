@@ -1,8 +1,6 @@
 #include "../ScreenManager.h"
-
-
-
 #include <iostream>
+
 MainMenuScreen mainMenuScreen;
 OverworldScreen overworldScreen;
 

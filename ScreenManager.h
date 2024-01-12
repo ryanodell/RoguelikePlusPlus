@@ -21,7 +21,6 @@ private:
     ScreenManager& operator =(const ScreenManager&) = delete;
     ~ScreenManager();
     ScreenBase* currentScreen;
-    //ScreenBase* currentScreen;
 };
 
 

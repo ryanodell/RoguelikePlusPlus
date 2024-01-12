@@ -1,5 +1,6 @@
 #include "OverworldScreen.h"
 #include "../Globals.h"
+#include "../Managers/InputManager.h"
 
 int PlayerX, PlayerY;
 
@@ -9,7 +10,19 @@ void OverworldScreen::OnLoad() const {
 }
 
 void OverworldScreen::Update(int frame) const {
-
+    eInputAction inputAction = InputManager::GetInput();
+    if(inputAction == RIGHT) {
+        PlayerX++;
+    }
+    if(inputAction == LEFT) {
+        PlayerX--;
+    }
+    if(inputAction == DOWN) {
+        PlayerY++;
+    }
+    if(inputAction == UP) {
+        PlayerY--;
+    };
 }
 
 void OverworldScreen::Draw(int frame) const {
