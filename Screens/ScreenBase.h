@@ -1,5 +1,6 @@
 #ifndef SCREENBASE_H_INCLUDED
 #define SCREENBASE_H_INCLUDED
+#include "../Managers/RenderManager.h"
 
 class ScreenBase {
 public:

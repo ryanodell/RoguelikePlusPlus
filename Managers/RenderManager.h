@@ -1,21 +1,42 @@
 #ifndef RENDERMANAGER_H_INCLUDED
 #define RENDERMANAGER_H_INCLUDED
+#include <stack>
 
 struct RenderUnit {
 public:
-    int X, Y;
+    int X;
+    int Y;
     char Character;
     unsigned char Color;
+    RenderUnit();
+    RenderUnit(int x, int y, char character, unsigned char color) {
+        X = x;
+        Y = y;
+        Character = character;
+        Color = color;
+    }
 };
 
 class RenderManager {
 public:
     RenderManager(const RenderManager&) = delete;
     static RenderManager& Get();
-    //static eInputAction GetInput() { return Get().IGetInput(); }
+    static void Draw(int x, int y, char character, unsigned char color) {
+        Get().IDraw(x, y, character, color);
+    }
+    static void Render() {
+        Get().IRender();
+    }
+    static void ClearScreen() {
+        Get().IClearScreen();
+    }
 
 private:
     RenderManager() {}
+    std::stack<RenderUnit> m_renderUnits;
+    void IDraw(int x, int y, char character, unsigned char color);
+    void IRender();
+    void IClearScreen();
     //eInputAction IGetInput();
 
 private:

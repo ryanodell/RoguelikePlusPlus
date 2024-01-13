@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1705013485 source:c:\users\user\documents\repo\cpp\roguelike\main.cpp
+1705170070 source:c:\users\user\documents\repo\cpp\roguelike\main.cpp
 	"Game.h"
 	"Globals.h"
 
-1704996447 source:c:\users\user\documents\repo\cpp\roguelike\game.cpp
+1705169589 source:c:\users\user\documents\repo\cpp\roguelike\game.cpp
 	"Game.h"
 	<iostream>
 	"Screens/ScreenBase.h"
 	"Screens/OverworldScreen.h"
 	"Globals.h"
+	"Managers/RenderManager.h"
 
 1704846187 c:\users\user\documents\repo\cpp\roguelike\game.h
 	<iostream>
@@ -18,15 +19,15 @@
 	"ScreenManager.h"
 	"Screens/MainMenuScreen.h"
 
-1705018441 c:\users\user\documents\repo\cpp\roguelike\enums.h
+1705163357 c:\users\user\documents\repo\cpp\roguelike\enums.h
 
-1705018931 c:\users\user\documents\repo\cpp\roguelike\screenmanager.h
+1705163363 c:\users\user\documents\repo\cpp\roguelike\screenmanager.h
 	"Screens/ScreenBase.h"
 	"Screens/MainMenuScreen.h"
 	"Screens/OverworldScreen.h"
 	"Globals.h"
 
-1705015563 source:c:\users\user\documents\repo\cpp\roguelike\managers\screenmanager.cpp
+1705170256 source:c:\users\user\documents\repo\cpp\roguelike\managers\screenmanager.cpp
 	"../ScreenManager.h"
 	<iostream>
 
@@ -36,21 +37,22 @@
 	<vector>
 	<memory>
 
-1704823167 c:\users\user\documents\repo\cpp\roguelike\screens\screenbase.h
+1705166800 c:\users\user\documents\repo\cpp\roguelike\screens\screenbase.h
+	"../Managers/RenderManager.h"
 
-1705088126 source:c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.cpp
+1705169682 source:c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.cpp
 	"../ScreenManager.h"
 	"MainMenuScreen.h"
 	"OverworldScreen.h"
 	"../Managers/InputManager.h"
 	<iostream>
 
-1704929199 c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.h
+1705166791 c:\users\user\documents\repo\cpp\roguelike\screens\mainmenuscreen.h
 	<windows.h>
 	<conio.h>
 	"ScreenBase.h"
 
-1705018600 source:c:\users\user\documents\repo\cpp\roguelike\screens\overworldscreen.cpp
+1705170183 source:c:\users\user\documents\repo\cpp\roguelike\screens\overworldscreen.cpp
 	"OverworldScreen.h"
 	"../Globals.h"
 	"../Managers/InputManager.h"
@@ -59,7 +61,7 @@
 	"ScreenBase.h"
 	<iostream>
 
-1704928675 c:\users\user\documents\repo\cpp\roguelike\globals.h
+1705163383 c:\users\user\documents\repo\cpp\roguelike\globals.h
 
 1705085017 source:c:\users\user\documents\repo\cpp\roguelike\managers\inputmanger.cpp
 	"InputManager.h"
@@ -70,5 +72,11 @@
 	<windows.h>
 	<conio.h>
 
-1705085775 source:c:\users\user\documents\repo\cpp\roguelike\managers\rendermanager.cpp
+1705169873 source:c:\users\user\documents\repo\cpp\roguelike\managers\rendermanager.cpp
+	"RenderManager.h"
+	<iostream>
+	<windows.h>
+
+1705169383 c:\users\user\documents\repo\cpp\roguelike\managers\rendermanager.h
+	<stack>
 

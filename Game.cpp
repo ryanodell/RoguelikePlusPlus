@@ -3,6 +3,7 @@
 #include "Screens/ScreenBase.h"
 #include "Screens/OverworldScreen.h"
 #include "Globals.h"
+#include "Managers/RenderManager.h"
 
 eInputAction inputAction;
 /*
@@ -78,8 +79,10 @@ void Game::EndFrame() {
 
 
 void Game::Draw(int frame) {
-    clearScreen();
+    //clearScreen();
+    RenderManager::ClearScreen();
     ScreenManager::GetInstance().Draw(frame);
+    RenderManager::Render();
     /*
     //top border
     for (int i = 0; i < Width + 2; i++) {
@@ -118,14 +121,6 @@ void Game::Draw(int frame) {
     std::cout << "Y: " << PlayerY << std::endl;
     */
 }
-
-void Game::clearScreen() {
-    COORD cursorPosition;
-    cursorPosition.X = 0;
-    cursorPosition.Y = 0;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
-}
-
 Game::~Game() {
 
 }

@@ -26,11 +26,11 @@ void ScreenManager::ChangeScreen(ScreenBase& screen) {
 
 void ScreenManager::ChangeScreen(const char* name) {
     if(strcmp(name, "mainMenu") == 0) {
-        std::cout << "main" << std::endl;
+        //std::cout << "main" << std::endl;
         currentScreen = &mainMenuScreen;
     }
     if(strcmp(name, "overworld") == 0) {
-        std::cout << "overworld" << std::endl;
+        //std::cout << "overworld" << std::endl;
         currentScreen = &overworldScreen;
     }
     currentScreen->OnLoad();

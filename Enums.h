@@ -5,5 +5,4 @@
 enum eInputAction {
     NONE, UP, DOWN, LEFT, RIGHT, QUIT
 };
-
 #endif // ENUMS_H_INCLUDED

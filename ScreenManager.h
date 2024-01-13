@@ -3,7 +3,6 @@
 #include "Screens/ScreenBase.h"
 #include "Screens/MainMenuScreen.h"
 #include "Screens/OverworldScreen.h"
-
 #include "Globals.h"
 
 class ScreenManager {

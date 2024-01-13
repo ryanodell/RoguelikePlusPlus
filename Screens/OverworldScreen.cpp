@@ -28,6 +28,7 @@ void OverworldScreen::Update(int frame) const {
 void OverworldScreen::Draw(int frame) const {
     //top border
     for (int i = 0; i < GameWidth + 2; i++) {
+        //RenderManager::Draw(i, 0, '-', FOREGROUND_BLUE);
         std::cout << '-';
     }
     std::cout << std::endl;
