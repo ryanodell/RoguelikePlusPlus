@@ -24,7 +24,7 @@ int main() {
         //Clear
         memset(buffer, 0, sizeof(CHAR_INFO) * bufferWidth * bufferHeight);
         // Draw to the buffer
-        drawToBuffer(buffer, x, 5, 'X', FOREGROUND_GREEN);
+        drawToBuffer(buffer, x, x, 'X', FOREGROUND_GREEN);
         drawToBuffer(buffer, x+1, 1, 'P', FOREGROUND_RED);
         drawToBuffer(buffer, x+7, 7, '@', FOREGROUND_BLUE|FOREGROUND_INTENSITY);
         //drawToBuffer(buffer, 6, 1, 'Y', FOREGROUND_RED);
@@ -32,7 +32,7 @@ int main() {
         // Write the entire buffer to the console
         SMALL_RECT writeRect = { 0, 0, bufferWidth - 1, bufferHeight - 1 };
         WriteConsoleOutput(hConsole, buffer, { bufferWidth, bufferHeight }, { 0, 0 }, &writeRect);
-        Sleep(5);
+        Sleep(1000);
         x++;
     }
     // Display some other text to see the modification
