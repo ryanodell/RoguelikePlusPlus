@@ -44,6 +44,10 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Managers/InputManger.cpp" />
+		<Unit filename="Managers/RenderManager.cpp" />
+		<Unit filename="Managers/RenderManager.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Managers/ScreenManager.cpp" />
 		<Unit filename="ScreenManager.h">
 			<Option target="&lt;{~None~}&gt;" />
