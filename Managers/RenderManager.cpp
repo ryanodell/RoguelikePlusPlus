@@ -15,6 +15,8 @@ void RenderManager::IDraw(int x, int y, char character, unsigned char color) {
 }
 
 void RenderManager::IRender() {
+    int bufferWidth = 50;
+    int bufferHeight = 20;
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     int totalUnits = m_renderUnits.size();
     //std::cout << "before: " << m_renderUnits.size() << std::endl;
@@ -28,10 +30,7 @@ void RenderManager::IRender() {
         std::cout << currentUnit.Character;
         m_renderUnits.pop();
     }
-    //std::cout << "after: " << m_renderUnits.size() << std::endl;
-    //Reset to white as default just in case
-    SetConsoleTextAttribute(hConsole,
-    FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
+
 }
 
 void RenderManager::IClearScreen() {
@@ -60,5 +59,44 @@ void RenderManager::IClearScreen() {
     GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
     cursorInfo.bVisible = false;
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+}
+
+ConsoleRenderManager& ConsoleRenderManager::Get() {
+    static ConsoleRenderManager instance;
+    return instance;
+}
+
+void ConsoleRenderManager::IDraw(int x, int y, char character, unsigned char color) {
+
+    m_renderUnits.push(RenderUnit(x, y, character, color));
+}
+
+void ConsoleRenderManager::IRender() {
+    int bufferWidth = 50;
+    int bufferHeight = 20;
+    //Clear the buffer;
+    memset(m_consoleBuffer, 0, sizeof(CHAR_INFO) * 50 * 20);
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    int totalUnits = m_renderUnits.size();
+    //std::cout << "before: " << m_renderUnits.size() << std::endl;
+    while(!m_renderUnits.empty()) {
+        RenderUnit currentUnit = m_renderUnits.top();
+        int index = currentUnit.Y * 50 + currentUnit.X;
+        m_consoleBuffer[index].Char.AsciiChar = currentUnit.Character;
+        m_consoleBuffer[index].Attributes = currentUnit.Color;
+        SMALL_RECT writeRect = { 0, 0, bufferWidth - 1, bufferHeight - 1 };
+        WriteConsoleOutput(GetStdHandle(STD_OUTPUT_HANDLE), m_consoleBuffer, { bufferWidth, bufferHeight }, { 0, 0 }, &writeRect);
+        m_renderUnits.pop();
+    }
+    //std::cout << "after: " << m_renderUnits.size() << std::endl;
+    //Reset to white as default just in case
+    SetConsoleTextAttribute(hConsole,
+    FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
+}
+
+void ConsoleRenderManager::IClearScreen() {
 
 }
+
+
+
