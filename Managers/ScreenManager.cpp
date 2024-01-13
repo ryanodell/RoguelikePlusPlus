@@ -15,7 +15,9 @@ void ScreenManager::Update(int frame) {
 }
 
 void ScreenManager::Draw(int frame) {
+    RenderManager::ClearScreen();
     currentScreen->Draw(frame);
+    RenderManager::Render();
 }
 
 void ScreenManager::ChangeScreen(ScreenBase& screen) {

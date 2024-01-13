@@ -18,11 +18,6 @@ void MainMenuScreen::OnLoad() const {
 }
 
 void MainMenuScreen::Update(int frame) const {
-    RenderManager::ClearScreen();
-    if(firstFramePassed == false) {
-        firstFramePassed = true;
-        return;
-    }
     eInputAction inputAction = InputManager::GetInput();
     if(inputAction == NONE) {
         ScreenManager::GetInstance().ChangeScreen("overworld");
@@ -40,8 +35,33 @@ void MainMenuScreen::Update(int frame) const {
 }
 
 void MainMenuScreen::Draw(int frame) const {
-    RenderManager::Draw(test1X, test1Y, test1Char, test1Color);
-    RenderManager::Draw(8, 1, '<', FOREGROUND_GREEN|FOREGROUND_INTENSITY);
+    int GameWidth = 50;
+    int GameHeight = 20;
+    //RenderManager::Draw(test1X, test1Y, test1Char, test1Color);
+    //RenderManager::Draw(8, 1, '<', FOREGROUND_GREEN|FOREGROUND_INTENSITY);
+
+    for (int i = 0; i < GameHeight; i++)
+    {
+        for (int k = 0; k < GameWidth; k++)
+        {
+            // Left border
+            if (k == 0)
+                //std::cout << '|';
+                RenderManager::Draw(k, i, '|', FOREGROUND_GREEN|FOREGROUND_BLUE|FOREGROUND_RED);
+            // player
+            else if (i == test1X && k == test1Y)
+                 RenderManager::Draw(test1X, test1Y, test1Char, test1Color);
+                //std::cout << '@';
+            // Right border
+            else if (k + 1 == GameWidth)
+                RenderManager::Draw(k, i, '|', FOREGROUND_GREEN|FOREGROUND_BLUE|FOREGROUND_RED);
+                //std::cout << '|';
+            else
+                //std::cout << ' ';
+                RenderManager::Draw(k, i, ' ', FOREGROUND_GREEN|FOREGROUND_BLUE|FOREGROUND_RED);
+        }
+        //std::cout << std::endl;
+    }
     /*Color fun, keep for reference
     unsigned char color = 201;
     HANDLE  hConsole;

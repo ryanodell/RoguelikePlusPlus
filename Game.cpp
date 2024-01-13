@@ -79,47 +79,7 @@ void Game::EndFrame() {
 
 
 void Game::Draw(int frame) {
-    //clearScreen();
-    RenderManager::ClearScreen();
     ScreenManager::GetInstance().Draw(frame);
-    RenderManager::Render();
-    /*
-    //top border
-    for (int i = 0; i < Width + 2; i++) {
-        std::cout << '-';
-    }
-    std::cout << std::endl;
-
-    for (int i = 0; i < Height; i++)
-    {
-        for (int k = 0; k < Width; k++)
-        {
-            // Left border
-            if (k == 0)
-                std::cout << '|';
-            // player
-            else if (i == PlayerY && k == PlayerX)
-                std::cout << '@';
-            // Right border
-            else if (k + 1 == Width)
-                std::cout << '|';
-            else
-                std::cout << ' ';
-        }
-        std::cout << std::endl;
-    }
-
-        // Draws bottom border
-    for (int i = 0; i < Width + 2; i++)
-        std::cout << '-';
-    std::cout << std::endl;
-
-    //Display current frame:
-    std::cout << std::endl;
-    std::cout << "Current Frame: " << frame << std::endl;
-    std::cout << "X: " << PlayerX << std::endl;
-    std::cout << "Y: " << PlayerY << std::endl;
-    */
 }
 Game::~Game() {
 

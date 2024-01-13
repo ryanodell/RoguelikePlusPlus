@@ -10,10 +10,10 @@ int main() {
     Game game(GameWidth, GameHeight);
     game.OnLoad();
     while(game.IsRunning()) {
-        game.Update(currentFrame);
         game.Draw(currentFrame);
+        game.Update(currentFrame);
         currentFrame++;
-        game.EndFrame();
+        //game.EndFrame();
     }
     return 0;
 }
