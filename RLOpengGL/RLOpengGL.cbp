@@ -33,6 +33,7 @@
 			<Add option="-fexceptions" />
 			<Add directory="C:/ExternalLibs/GLFW/GLFW/include" />
 			<Add directory="C:/ExternalLibs/glad/include" />
+			<Add directory="C:/ExternalLibs/glm-0.9.9.8/glm/glm" />
 		</Compiler>
 		<Linker>
 			<Add option="-lglfw3 -lgdi32 -lopengl32" />
