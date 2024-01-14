@@ -1,5 +1,7 @@
 # depslib dependency file v1.0
-1705243454 source:c:\users\user\documents\repo\cpp\roguelike\rlopenggl\main.cpp
+1705244973 source:c:\users\user\documents\repo\cpp\roguelike\rlopenggl\main.cpp
+	<windows.h>
+	<glad/glad.h>
 	<GLFW/glfw3.h>
 
 1705238965 c:\externallibs\glfw\glfw\include\glfw\glfw3.h
@@ -25,4 +27,21 @@
 	<OpenGL/gl.h>
 	<GL/gl.h>
 	<GL/glext.h>
+
+1705244528 source:c:\users\user\documents\repo\cpp\roguelike\rlopenggl\glad.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<glad/glad.h>
+	<windows.h>
+	<winapifamily.h>
+	<dlfcn.h>
+
+1705244264 c:\externallibs\glad\include\glad\glad.h
+	<KHR/khrplatform.h>
+
+1705244264 c:\externallibs\glad\include\khr\khrplatform.h
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
 
