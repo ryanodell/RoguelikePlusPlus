@@ -31,8 +31,27 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="C:/ExternalLibs/GLFW/GLFW/include" />
+			<Add directory="C:/ExternalLibs/glad/include" />
 		</Compiler>
+		<Linker>
+			<Add option="-lglfw3 -lgdi32 -lopengl32" />
+			<Add library="C:/ExternalLibs/GLFW/GLFW/lib/libglfw3.a" />
+			<Add library="C:/ExternalLibs/GLFW/GLFW/lib/libglfw3dll.a" />
+			<Add library="C:/MinGW/lib/libopengl32.a" />
+			<Add directory="C:/ExternalLibs/GLFW/GLFW/lib" />
+		</Linker>
+		<Unit filename="glad.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="shader.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="stb_image.cpp" />
+		<Unit filename="stb_image.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="usershader.cpp" />
+		<Unit filename="usetexture.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
