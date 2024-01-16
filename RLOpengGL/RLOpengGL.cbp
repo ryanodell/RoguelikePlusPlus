@@ -45,6 +45,9 @@
 		<Unit filename="glad.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="myimplementation.cpp" />
+		<Unit filename="myimplementation.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="shader.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
