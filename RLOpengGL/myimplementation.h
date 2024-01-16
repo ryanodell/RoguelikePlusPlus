@@ -4,14 +4,60 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
+#include "shader.h"
+
+#define INT2VOIDP(i) (void*)(uintptr_t)(i)
+
+///////////////////////////VERTEX BUFFER ELEMENT///////////////////////////////
+struct VertexBufferElement {
+    unsigned int type;
+    unsigned int count;
+    unsigned char normalized;
+    static unsigned int GetSizeOfType(unsigned int type) {
+        switch (type) {
+            case GL_FLOAT         : return sizeof(GLfloat);
+            case GL_UNSIGNED_INT  : return sizeof(GLuint);
+            case GL_UNSIGNED_BYTE : return sizeof(GLbyte);
+        }
+        return 0;
+    }
+};
+///////////////////////////VERTEX BUFFER ELEMENT///////////////////////////////
+
+////////////////////////////////BUFFER LAYOUT//////////////////////////////////
+class VertexBufferLayout {
+    private:
+        unsigned int m_Stride;
+        std::vector<VertexBufferElement> m_Elements;
+
+    public:
+        VertexBufferLayout() :
+            m_Stride(0) { }
+
+        void AddFloat(unsigned int count)        { Push(GL_FLOAT, count, GL_FALSE);        }
+        void AddUnsignedInt(unsigned int count)  { Push(GL_UNSIGNED_INT, count, GL_FALSE); }
+        void AddUnsignedByte(unsigned int count) { Push(GL_UNSIGNED_BYTE, count, GL_TRUE); }
+
+        inline const std::vector<VertexBufferElement> GetElements() const { return m_Elements; };
+        inline unsigned int GetStride() const { return m_Stride; };
+
+    private:
+        void Push(unsigned int type, unsigned int count, unsigned char normalized) {
+            struct VertexBufferElement vbe = {type, count, normalized};
+            m_Elements.push_back(vbe);
+            m_Stride += count * VertexBufferElement::GetSizeOfType(type);
+        };
+};
+////////////////////////////////BUFFER LAYOUT//////////////////////////////////
 
 ////////////////////////////////VERTEX BUFFER//////////////////////////////////
 class VertexBuffer {
 public:
     VertexBuffer(const void* data, unsigned int size);
     ~VertexBuffer();
-    void Bind();
-    void Unbind();
+    void Bind() const;
+    void Unbind() const;
 private:
     unsigned int m_VertexBufferId;
 };
@@ -23,14 +69,95 @@ VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
 VertexBuffer::~VertexBuffer() {
     glDeleteBuffers(1, &m_VertexBufferId);
 }
-void VertexBuffer::Bind() {
+void VertexBuffer::Bind() const {
     glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId);
 }
-void VertexBuffer::Unbind() {
+void VertexBuffer::Unbind() const {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 ////////////////////////////////VERTEX BUFFER//////////////////////////////////
 
+/////////////////////////////////INDEX BUFFER//////////////////////////////////
+
+class IndexBuffer {
+    private:
+        unsigned int m_RendererID;
+        unsigned int m_Count;
+
+    public:
+        IndexBuffer(const unsigned int* indices, unsigned int count);
+        ~IndexBuffer();
+        void Bind() const;
+        void Unbind() const;
+        inline unsigned int GetCount() const { return m_Count; }
+};
+IndexBuffer::IndexBuffer(const unsigned int* indices, unsigned int count) : m_Count(count) {
+    glGenBuffers(1, &m_RendererID) ;
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+}
+
+IndexBuffer::~IndexBuffer() {
+    glDeleteBuffers(1, &m_RendererID);
+}
+
+void IndexBuffer::Bind() const {
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+}
+
+void IndexBuffer::Unbind() const {
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+/////////////////////////////////INDEX BUFFER//////////////////////////////////
+
+///////////////////////////VERTEX ARRAY///////////////////////////////////////
+class VertexArray {
+    private:
+        unsigned int m_RendererID;
+
+    public:
+        VertexArray();
+        ~VertexArray();
+        void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+        void Bind() const;
+        void Unbind() const;
+};
+VertexArray::VertexArray()
+{
+    glGenVertexArrays(1, &m_RendererID);
+}
+
+VertexArray::~VertexArray()
+{
+    glDeleteVertexArrays(1, &m_RendererID);
+}
+
+void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
+{
+    Bind();
+    vb.Bind();
+    const std::vector<VertexBufferElement> elements = layout.GetElements();
+    unsigned int offset = 0;
+    for (unsigned int i = 0; i < elements.size() ; i++)
+    {
+        const VertexBufferElement element = elements[i];
+        glEnableVertexAttribArray(i);
+        glVertexAttribPointer(i, element.count, element.type, element.normalized,
+                                      layout.GetStride(), INT2VOIDP(offset));
+        offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
+    }
+}
+
+void VertexArray::Bind() const
+{
+    glBindVertexArray(m_RendererID);
+}
+
+void VertexArray::Unbind() const
+{
+    glBindVertexArray(0);
+};
+///////////////////////////VERTEX ARRAY//////////////////////////////////////
 
 ////////////////////////////////GAME WINDOW//////////////////////////////////
 class GameWindow {
@@ -88,5 +215,22 @@ void GameWindow::Update() {
 }
 ////////////////////////////////GAME WINDOW//////////////////////////////////
 
+////////////////////////////////RENDERER/////////////////////////////////////
+class Renderer {
+    public:
+        void Clear() const;
+        void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+};
+void Renderer::Clear() const {
+        glClear( GL_COLOR_BUFFER_BIT );
+}
+
+void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const {
+        shader.use();
+        va.Bind();
+        ib.Bind();
+        glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr);
+}
+////////////////////////////////RENDERER////////////////////////////////////
 
 #endif // MYIMPLEMENTATION_H_INCLUDED
