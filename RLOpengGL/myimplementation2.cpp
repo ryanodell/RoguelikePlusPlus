@@ -1,4 +1,3 @@
-/*
 #include "myimplementation.h"
 
 const unsigned int SCR_WIDTH = 800;
@@ -14,22 +13,24 @@ int main() {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-    Shader shader("shaders/basic.vert", "shaders/basic.frag");
+    Shader shader("shaders/basic_shader.vert", "shaders/basic_shader.frag");
     float vertices[] = {
-         0.5f,  0.5f, 0.0f,  // top right
-         0.5f, -0.5f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  // bottom left
-        -0.5f,  0.5f, 0.0f   // top left
+        //Positions             //Colors
+         0.5f,  0.5f, 0.0f,     1.0f, 0.0f, 0.0f,  // top right
+         0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, // bottom left
+        -0.5f,  0.5f, 0.0f,     1.0f, 1.0f, 0.0f   // top left
     };
     unsigned int indices[] = {  // note that we start from 0!
         0, 1, 3,  // first Triangle
         1, 2, 3   // second Triangle
     };
     IndexBuffer ib = IndexBuffer(indices, 6);
-    VertexBuffer vb = VertexBuffer(vertices, 3 * 4 * sizeof(float));
+    VertexBuffer vb = VertexBuffer(vertices, 6 * 4 * sizeof(float));
     VertexArray va;
 
     VertexBufferLayout layout;
+    layout.AddFloat(3);
     layout.AddFloat(3);
 
     va.AddBuffer(vb, layout);
@@ -44,4 +45,3 @@ int main() {
     }
     return 0;
 }
-*/
