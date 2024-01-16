@@ -13,6 +13,7 @@ int main() {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+    Shader shader("shaders/basic.vert", "shaders/basic.frag");
     float vertices[] = {
          0.5f,  0.5f, 0.0f,  // top right
          0.5f, -0.5f, 0.0f,  // bottom right
@@ -23,12 +24,20 @@ int main() {
         0, 1, 3,  // first Triangle
         1, 2, 3   // second Triangle
     };
+    IndexBuffer ib = IndexBuffer(indices, 6);
+    VertexBuffer vb = VertexBuffer(vertices, 4 * 4 * sizeof(float));
+    VertexArray va;
 
-    VertexBuffer vert = VertexBuffer(vertices, 4 * 2 * sizeof(float));
+    VertexBufferLayout layout;
+    layout.AddFloat(3);
+
+    va.AddBuffer(vb, layout);
+    Renderer renderer;
     while (!glfwWindowShouldClose(gameWindow.GetWindow())) {
         gameWindow.Update();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        renderer.Clear();
+        renderer.Draw(va, ib, shader);
         gameWindow.SwapBuffers();
         gameWindow.PollEvents();
     }
