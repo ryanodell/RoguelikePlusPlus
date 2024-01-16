@@ -171,8 +171,6 @@ public:
     GLFWwindow* GetWindow() const { return m_window; };
 private:
     GLFWwindow* m_window;
-    unsigned int m_width;
-    unsigned int m_height;
     const char* m_windowTitle;
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 };
@@ -181,8 +179,6 @@ GameWindow::GameWindow(unsigned int windowWidth, unsigned int windowHeight, cons
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    m_width = windowWidth;
-    m_height = windowHeight;
     m_windowTitle = windowTitle;
     m_window = glfwCreateWindow(windowWidth, windowHeight, windowTitle, NULL, NULL);
     if (m_window == NULL) {
@@ -196,12 +192,7 @@ GameWindow::~GameWindow() {
     glfwTerminate();
 }
 void GameWindow::framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    GameWindow* gameWindow = static_cast<GameWindow*>(glfwGetWindowUserPointer(window));
-    if (gameWindow != nullptr) {
-        gameWindow->m_width = width;
-        gameWindow->m_height = height;
-        glViewport(0, 0, width, height);
-    }
+    glViewport(0, 0, width, height);
 }
 void GameWindow::SwapBuffers() {
     glfwSwapBuffers(m_window);
