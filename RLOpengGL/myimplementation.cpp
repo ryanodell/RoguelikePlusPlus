@@ -25,7 +25,7 @@ int main() {
         1, 2, 3   // second Triangle
     };
     IndexBuffer ib = IndexBuffer(indices, 6);
-    VertexBuffer vb = VertexBuffer(vertices, 4 * 4 * sizeof(float));
+    VertexBuffer vb = VertexBuffer(vertices, 3 * 4 * sizeof(float));
     VertexArray va;
 
     VertexBufferLayout layout;
