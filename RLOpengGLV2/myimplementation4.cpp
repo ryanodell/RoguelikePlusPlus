@@ -58,7 +58,7 @@ int main() {
             };
             vb.UpdateBuffer(vertices);
 */
-        vertices[0] += 0.005f;
+        vertices[0] += 0.00005f;
         //glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
         vb.UpdateBuffer(vertices, sizeof(vertices));
         shader.use();
