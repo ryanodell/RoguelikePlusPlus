@@ -25,9 +25,9 @@ struct Vec4 {
 ///////////////////////////VERTEX//////////////////////////////////////////////
 struct Vertex {
     Vec3 Position;
-    Vec4 Color;
+    Vec3 Color;
     Vec2 TexCoords;
-    float TexID;
+    //float TexID;
 };
 
 ///////////////////////////VERTEX//////////////////////////////////////////////
@@ -78,19 +78,36 @@ class VertexBufferLayout {
 class VertexBuffer {
 public:
     VertexBuffer(const void* data, unsigned int size);
+    VertexBuffer(unsigned int size);
+    void UpdateBuffer(const void* data, unsigned int size);
     ~VertexBuffer();
     void Bind() const;
     void Unbind() const;
 private:
     unsigned int m_VertexBufferId;
+    bool m_dynamicBuffer;
+    float m_internalBuffer[];
 };
+VertexBuffer::VertexBuffer(unsigned int size) {
+    glGenBuffers(1, &m_VertexBufferId);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId);
+    glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+    m_dynamicBuffer = true;
+    std::cout << m_VertexBufferId << std::endl;
+}
 VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
     glGenBuffers(1, &m_VertexBufferId);
     glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId);
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+    m_dynamicBuffer = false;
+    std::cout << m_VertexBufferId << std::endl;
 }
 VertexBuffer::~VertexBuffer() {
     glDeleteBuffers(1, &m_VertexBufferId);
+}
+void VertexBuffer::UpdateBuffer(const void* data, unsigned int size) {
+    Bind();
+    glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 }
 void VertexBuffer::Bind() const {
     glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId);
