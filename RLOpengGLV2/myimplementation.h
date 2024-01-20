@@ -267,6 +267,15 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 }
 ////////////////////////////////RENDERER////////////////////////////////////
 
+////////////////////////////BATCH RENDERER//////////////////////////////////
+class SpriteBatchRenderer{
+public:
+
+private:
+
+};
+////////////////////////////BATCH RENDERER//////////////////////////////////
+
 ////////////////////////////////TEXTURE/////////////////////////////////////
 class Texture
 {
@@ -285,6 +294,8 @@ class Texture
 
         inline int GetWidth() const { return m_Width; }
         inline int GetHeight() const { return m_Height; }
+        inline float TexelWidth() const { return 1.0f / m_Width; }
+        inline float TexelHeight() const { return 1.0f / m_Height; }
         inline int GetId() const { return m_RendererID; }
 };
 Texture::Texture(const std::string& path)
