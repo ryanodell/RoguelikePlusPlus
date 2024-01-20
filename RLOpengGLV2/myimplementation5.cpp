@@ -1,4 +1,4 @@
-/*
+
 #include "myimplementation.h"
 
 const unsigned int SCR_WIDTH = 800;
@@ -30,10 +30,7 @@ int main() {
     };
     VertexArray va;
     IndexBuffer ib = IndexBuffer(indices, 6);
-    //auto test = 8 * 4 * sizeof(float);
-    //std::cout << test << std::endl;
     VertexBuffer vb = VertexBuffer(sizeof(Vertex) * 4);
-    //VertexBuffer vb = VertexBuffer(vertices, 8 * 4 * sizeof(float));
     VertexBufferLayout layout;
     layout.AddFloat(3);
     layout.AddFloat(3);
@@ -44,23 +41,23 @@ int main() {
     Texture texture("images/kruggsmash.png");
     texture.Bind();
     shader.setInt("ourShader", texture.GetId());
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)22/(float)22, 0.1f, 100.0f);
     while (!glfwWindowShouldClose(gameWindow.GetWindow())) {
         gameWindow.Update();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         renderer.Clear();
-        vertices[0] += 0.00005f;
-        //glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+        //vertices[0] += 0.00005f;
         vb.UpdateBuffer(vertices, sizeof(vertices));
+        /*
         shader.use();
         va.Bind();
-        //vb.UpdateBuffer(vertices);
         ib.Bind();
         glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr);
-
-        //renderer.Draw(va, ib, shader);
+    */
+        renderer.Draw(va, ib, shader);
         gameWindow.SwapBuffers();
         gameWindow.PollEvents();
     }
     return 0;
 }
-*/
+

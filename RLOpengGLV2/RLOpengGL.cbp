@@ -42,6 +42,10 @@
 			<Add library="C:/MinGW/lib/libopengl32.a" />
 			<Add directory="C:/ExternalLibs/GLFW/GLFW/lib" />
 		</Linker>
+		<ExtraCommands>
+			<Add after='xcopy /Y &quot;$(PROJECT_DIR)shaders\*&quot; &quot;$(TARGET_OUTPUT_DIR)shaders\&quot;' />
+			<Mode after="always" />
+		</ExtraCommands>
 		<Unit filename="glad.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="myimplementation.cpp" />
@@ -51,6 +55,7 @@
 		<Unit filename="myimplementation2.cpp" />
 		<Unit filename="myimplementation3.cpp" />
 		<Unit filename="myimplementation4.cpp" />
+		<Unit filename="myimplementation5.cpp" />
 		<Unit filename="shader.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
