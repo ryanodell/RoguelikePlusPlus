@@ -14,14 +14,14 @@ int main() {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-    Shader shader("shaders/texture_shader_transform.vert", "shaders/texture_shader_transform.frag");
+    Shader shader("shaders/texture_shader.vert", "shaders/texture_shader.frag");
 
     float vertices[] = {
         //Positions          //Colors           //Tex
-         50.0f,  50.0f, 0.0f,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f,     // top right
-         50.0f, -50.0f, 0.0f,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f,     // bottom right
-        -50.0f, -50.0f, 0.0f,  1.0f, 1.0f, 1.0f,  0.0f, 0.0f,     // bottom left
-        -50.0f,  50.0f, 0.0f,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f      // top left
+         0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f,     // top right
+         0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f,     // bottom right
+        -0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  0.0f, 0.0f,     // bottom left
+        -0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f      // top left
     };
 
     unsigned int indices[] = {
@@ -47,6 +47,8 @@ int main() {
     Renderer renderer;
     Texture texture("images/kruggsmash.png");
     texture.Bind();
+    SpriteRenderer sRenderer;
+    sRenderer.Init();
     shader.setInt("ourShader", texture.GetId());
 
     glm::vec3 translationA(200, 200, 0);
@@ -58,6 +60,8 @@ int main() {
         renderer.Clear();
         //vertices[0] += 0.05f;
         vb.UpdateBuffer(vertices, sizeof(vertices));
+        renderer.Draw(va, ib, shader);
+        /*
         {
             glm::mat4 model = glm::translate(glm::mat4(1.0f), translationA);
             glm::mat4 mvp = proj * view * model;
@@ -70,6 +74,7 @@ int main() {
             shader.setMat4("u_mvp", mvp);
             renderer.Draw(va, ib, shader);
         }
+        */
         gameWindow.SwapBuffers();
         gameWindow.PollEvents();
     }
