@@ -1,4 +1,4 @@
-/*
+
 #include "myimplementation.h"
 
 const unsigned int SCR_WIDTH = 800;
@@ -75,4 +75,4 @@ int main() {
     }
     return 0;
 }
-*/
+

@@ -252,6 +252,7 @@ void GameWindow::Update() {
 ////////////////////////////////RENDERER/////////////////////////////////////
 class Renderer {
     public:
+        void Init();
         void Clear() const;
         void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
 };
@@ -266,15 +267,6 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
         glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr);
 }
 ////////////////////////////////RENDERER////////////////////////////////////
-
-////////////////////////////BATCH RENDERER//////////////////////////////////
-class SpriteBatchRenderer{
-public:
-
-private:
-
-};
-////////////////////////////BATCH RENDERER//////////////////////////////////
 
 ////////////////////////////////TEXTURE/////////////////////////////////////
 class Texture
@@ -345,6 +337,29 @@ void Texture::Unbind() const
 {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+////////////////////////////BATCH RENDERER//////////////////////////////////
+struct SpriteSheetRect {
+    float X, Y, Width, Height;
+};
+struct Sprite {
+    Texture* Tex;
+    Vec2 Position;
+    SpriteSheetRect SrcRect;
+    Vec4 Color;
+};
+
+class SpriteRenderer{
+public:
+    void Init();
+    void BeginDraw();
+    void Draw();
+    void EndDraw();
+private:
+    void flush();
+
+};
+////////////////////////////BATCH RENDERER//////////////////////////////////
 
 ////////////////////////////////TEXTURE/////////////////////////////////////
 #endif // MYIMPLEMENTATION_H_INCLUDED
