@@ -343,22 +343,41 @@ struct SpriteSheetRect {
     float X, Y, Width, Height;
 };
 struct Sprite {
-    Texture* Tex;
-    Vec2 Position;
-    SpriteSheetRect SrcRect;
+    Vec3 Position;
     Vec4 Color;
+    SpriteSheetRect SrcRect;
+    Texture* Tex;
 };
 
 class SpriteRenderer{
 public:
     void Init();
-    void BeginDraw();
-    void Draw();
+    void BeginDraw(glm::mat4 camera);
+    void TempDraw();
+    void Draw(Sprite sprite);
     void EndDraw();
+    ~SpriteRenderer() { delete m_vertexBuffer; }
 private:
     void flush();
-
+    VertexBuffer* m_vertexBuffer;
+    VertexArray m_vertexArray;
+    VertexBufferLayout m_vertexBufferLayout;
+    const int QUAD = 4;
+    const int MAX_QUADS = 1000;
 };
+
+void SpriteRenderer::Init() {
+    m_vertexBuffer = new VertexBuffer(sizeof(Vertex) * QUAD * MAX_QUADS);
+    m_vertexBufferLayout.AddFloat(3);
+    m_vertexBufferLayout.AddFloat(4);
+    m_vertexBufferLayout.AddFloat(2);
+    m_vertexArray.AddBuffer(*m_vertexBuffer, m_vertexBufferLayout);
+}
+
+void SpriteRenderer::TempDraw() {
+
+}
+
 ////////////////////////////BATCH RENDERER//////////////////////////////////
 
 ////////////////////////////////TEXTURE/////////////////////////////////////

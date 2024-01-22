@@ -57,6 +57,7 @@
 		<Unit filename="myimplementation4.cpp" />
 		<Unit filename="myimplementation5.cpp" />
 		<Unit filename="myimplementation6.cpp" />
+		<Unit filename="myimplementation7.cpp" />
 		<Unit filename="shader.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
