@@ -58,23 +58,7 @@ int main() {
         gameWindow.Update();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         renderer.Clear();
-        //vertices[0] += 0.05f;
-        vb.UpdateBuffer(vertices, sizeof(vertices));
-        renderer.Draw(va, ib, shader);
-        /*
-        {
-            glm::mat4 model = glm::translate(glm::mat4(1.0f), translationA);
-            glm::mat4 mvp = proj * view * model;
-            shader.setMat4("u_mvp", mvp);
-            renderer.Draw(va, ib, shader);
-        }
-        {
-            glm::mat4 model = glm::translate(glm::mat4(1.0f), translationB);
-            glm::mat4 mvp = proj * view * model;
-            shader.setMat4("u_mvp", mvp);
-            renderer.Draw(va, ib, shader);
-        }
-        */
+        sRenderer.TempDraw(shader, texture);
         gameWindow.SwapBuffers();
         gameWindow.PollEvents();
     }

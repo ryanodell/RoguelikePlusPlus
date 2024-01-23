@@ -353,10 +353,11 @@ class SpriteRenderer{
 public:
     void Init();
     void BeginDraw(glm::mat4 camera);
-    void TempDraw(Shader& shader);
+    void TempDraw(Shader& shader, Texture& tex);
     void Draw(Sprite sprite);
     void EndDraw();
-    ~SpriteRenderer() { delete m_vertexBuffer; }
+    ~SpriteRenderer() { delete m_vertexBuffer; };
+    SpriteRenderer() { };
 private:
     void flush();
     VertexBuffer* m_vertexBuffer;
@@ -374,14 +375,80 @@ void SpriteRenderer::Init() {
     m_vertexArray.AddBuffer(*m_vertexBuffer, m_vertexBufferLayout);
 }
 
-void SpriteRenderer::TempDraw(Shader& shader) {
+void SpriteRenderer::TempDraw(Shader& shader, Texture& tex) {
+    /*
+    if (sourceRectangle.HasValue)
+        {
+            var srcRect = sourceRectangle.GetValueOrDefault();
+            w = srcRect.Width * scale.X;
+            h = srcRect.Height * scale.Y;
+            _texCoordTL.X = srcRect.X * texture.TexelWidth;
+            _texCoordTL.Y = srcRect.Y * texture.TexelHeight;
+            _texCoordBR.X = (srcRect.X + srcRect.Width) * texture.TexelWidth;
+            _texCoordBR.Y = (srcRect.Y + srcRect.Height) * texture.TexelHeight;
+        }
+        item.Set(position.X - origin.X,
+                    position.Y - origin.Y,
+                    w,
+                    h,
+                    color,
+                    _texCoordTL,
+                    _texCoordBR,
+                    layerDepth);
+        public void Set(float x, float y, float w, float h, Color color, Vector2 texCoordTL, Vector2 texCoordBR, float depth)
+        {
+            vertexTL.Position.X = x;
+            vertexTL.Position.Y = y;
+            vertexTL.Position.Z = depth;
+            vertexTL.Color = color;
+            vertexTL.TextureCoordinate.X = texCoordTL.X;
+            vertexTL.TextureCoordinate.Y = texCoordTL.Y;
+
+            vertexTR.Position.X = x + w;
+            vertexTR.Position.Y = y;
+            vertexTR.Position.Z = depth;
+            vertexTR.Color = color;
+            vertexTR.TextureCoordinate.X = texCoordBR.X;
+            vertexTR.TextureCoordinate.Y = texCoordTL.Y;
+
+            vertexBL.Position.X = x;
+            vertexBL.Position.Y = y + h;
+            vertexBL.Position.Z = depth;
+            vertexBL.Color = color;
+            vertexBL.TextureCoordinate.X = texCoordTL.X;
+            vertexBL.TextureCoordinate.Y = texCoordBR.Y;
+
+            vertexBR.Position.X = x + w;
+            vertexBR.Position.Y = y + h;
+            vertexBR.Position.Z = depth;
+            vertexBR.Color = color;
+            vertexBR.TextureCoordinate.X = texCoordBR.X;
+            vertexBR.TextureCoordinate.Y = texCoordBR.Y;
+        }
+    */
+    SpriteSheetRect rect { 16.0f, 16.0f, 16.0f, 16.0f };
+    Vec2 texCoordTL = { rect.X * tex.TexelWidth(), rect.Y * tex.TexelHeight() };
+    Vec2 texCoordBR = { (rect.X + rect.Width) * tex.TexelWidth(), (rect.Y + rect.Height) * tex.TexelHeight() };
+    //float texCoordTLX = rect.X * tex.TexelWidth();
+    //float texCoordTLY = rect.Y * tex.TexelHeight();
+    //float texCoordBRX = (rect.X + rect.Width) * tex.TexelWidth();
+    //float texCoordBRY = (rect.Y + rect.Height) * tex.TexelHeight();
+        float vertices[] = {
+        //Positions          //Colors           //Tex
+         0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  texCoordBR.x, texCoordTL.y,     // top right
+         0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  texCoordBR.x, texCoordBR.y,     // bottom right
+        -0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  texCoordTL.x, texCoordBR.y,     // bottom left
+        -0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  texCoordTL.x, texCoordTL.y      // top left
+    };
+/*
     float vertices[] = {
         //Positions          //Colors           //Tex
-         0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,     // top right
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 0.0f,     // bottom right
-        -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  0.0f, 0.0f,     // bottom left
-        -0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,  0.0f, 1.0f      // top left
+         0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f,     // top right
+         0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f,     // bottom right
+        -0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  0.0f, 0.0f,     // bottom left
+        -0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f      // top left
     };
+    */
 
     unsigned int indices[] = {
         0, 1, 3,  // first Triangle
