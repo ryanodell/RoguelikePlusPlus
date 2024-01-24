@@ -426,7 +426,7 @@ void SpriteRenderer::TempDraw(Shader& shader, Texture& tex) {
             vertexBR.TextureCoordinate.Y = texCoordBR.Y;
         }
     */
-    SpriteSheetRect rect { 16.0f, 16.0f, 16.0f, 16.0f };
+    SpriteSheetRect rect { 32.0f, 64.0f, 32.0f, 32.0f };
     Vec2 texCoordTL = { rect.X * tex.TexelWidth(), rect.Y * tex.TexelHeight() };
     Vec2 texCoordBR = { (rect.X + rect.Width) * tex.TexelWidth(), (rect.Y + rect.Height) * tex.TexelHeight() };
     //float texCoordTLX = rect.X * tex.TexelWidth();
