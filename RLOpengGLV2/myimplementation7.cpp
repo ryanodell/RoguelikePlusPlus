@@ -53,12 +53,16 @@ int main() {
 
     glm::vec3 translationA(200, 200, 0);
     glm::vec3 translationB(400, 200, 0);
+    Vec2 position = { 0.5f, 0.5f };
+    SpriteSheetRect rect = { 32.0f, 64.0f, 32.0f, 32.0f };
+    Vec3 color = { 1.0f, 1.0f, 1.0f };
 
     while (!glfwWindowShouldClose(gameWindow.GetWindow())) {
         gameWindow.Update();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         renderer.Clear();
-        sRenderer.TempDraw(shader, texture);
+        sRenderer.TempDraw(shader, texture, position, rect, color);
+        //sRenderer.TempDraw(shader, texture);
         gameWindow.SwapBuffers();
         gameWindow.PollEvents();
     }

@@ -32,6 +32,11 @@ struct Vertex {
     Vec2 TexCoords;
     //float TexID;
 };
+struct VertexPositionColorTexture {
+    Vec3 Position;
+    Vec4 Color;
+    Vec2 TextureCoords;
+};
 
 ///////////////////////////VERTEX//////////////////////////////////////////////
 
@@ -377,6 +382,10 @@ void SpriteRenderer::Init() {
 }
 
 void SpriteRenderer::TempDraw(Shader& shader, Texture& tex, Vec2 position, SpriteSheetRect srcRect, Vec3 color) {
+    VertexPositionColorTexture vertexTL;
+	VertexPositionColorTexture vertexTR;
+	VertexPositionColorTexture vertexBL;
+	VertexPositionColorTexture vertexBR;
     float vertices[] = {
         //Positions          //Colors           //Tex
          0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,     // top right
