@@ -354,6 +354,7 @@ public:
     void Init();
     void BeginDraw(glm::mat4 camera);
     void TempDraw(Shader& shader, Texture& tex);
+    void TempDraw(Shader& shader, Texture& tex, Vec2 position, SpriteSheetRect srcRect, Vec3 color);
     void Draw(Sprite sprite);
     void EndDraw();
     ~SpriteRenderer() { delete m_vertexBuffer; };
@@ -373,6 +374,28 @@ void SpriteRenderer::Init() {
     m_vertexBufferLayout.AddFloat(3);
     m_vertexBufferLayout.AddFloat(2);
     m_vertexArray.AddBuffer(*m_vertexBuffer, m_vertexBufferLayout);
+}
+
+void SpriteRenderer::TempDraw(Shader& shader, Texture& tex, Vec2 position, SpriteSheetRect srcRect, Vec3 color) {
+    float vertices[] = {
+        //Positions          //Colors           //Tex
+         0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,     // top right
+         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 0.0f,     // bottom right
+        -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  0.0f, 0.0f,     // bottom left
+        -0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,  0.0f, 1.0f      // top left
+    };
+
+
+    unsigned int indices[] = {
+        0, 1, 3,  // first Triangle
+        1, 2, 3   // second Triangle
+    };
+    IndexBuffer ib = IndexBuffer(indices, 6);
+    m_vertexBuffer->UpdateBuffer(vertices, sizeof(vertices));
+    shader.use();
+    m_vertexArray.Bind();
+    ib.Bind();
+    glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr);
 }
 
 void SpriteRenderer::TempDraw(Shader& shader, Texture& tex) {
