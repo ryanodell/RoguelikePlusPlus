@@ -416,6 +416,16 @@ void SpriteRenderer::TempDraw(Shader& shader, Texture& tex, Vec2 position, Sprit
 	VertexPositionColorTexture vertexBL;
 	VertexPositionColorTexture vertexBR;
 
+	Vec2 texCoordTL = {0.0f, 0.0f};
+	Vec2 texCoordBR = {0.0f, 0.0f};
+
+
+	texCoordTL.x = srcRect.X + tex.TexelWidth();
+	texCoordTL.x = srcRect.Y + tex.TexelHeight();
+
+	texCoordBR.x = (srcRect.X + srcRect.Width) * tex.TexelWidth();
+	texCoordBR.y = (srcRect.Y + srcRect.Height) * tex.TexelHeight();
+
     vertexTL.Position.x = position.x;
     vertexTL.Position.y = position.y;
     vertexTL.Position.z = 0.0f;
