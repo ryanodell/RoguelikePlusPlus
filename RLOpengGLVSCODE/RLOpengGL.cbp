@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="RLOpengGL" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/RLOpengGL" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/RLOpengGL" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="C:/ExternalLibs/GLFW/GLFW/include" />
+			<Add directory="C:/ExternalLibs/glad/include" />
+			<Add directory="C:/ExternalLibs/glm-0.9.9.8/glm" />
+		</Compiler>
+		<Linker>
+			<Add option="-lglfw3 -lgdi32 -lopengl32" />
+			<Add library="C:/ExternalLibs/GLFW/GLFW/lib/libglfw3.a" />
+			<Add library="C:/ExternalLibs/GLFW/GLFW/lib/libglfw3dll.a" />
+			<Add library="C:/MinGW/lib/libopengl32.a" />
+			<Add directory="C:/ExternalLibs/GLFW/GLFW/lib" />
+		</Linker>
+		<ExtraCommands>
+			<Add after='xcopy /Y &quot;$(PROJECT_DIR)shaders\*&quot; &quot;$(TARGET_OUTPUT_DIR)shaders\&quot;' />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="glad.cpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="myimplementation.cpp" />
+		<Unit filename="myimplementation.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="myimplementation2.cpp" />
+		<Unit filename="myimplementation3.cpp" />
+		<Unit filename="myimplementation4.cpp" />
+		<Unit filename="myimplementation5.cpp" />
+		<Unit filename="myimplementation6.cpp" />
+		<Unit filename="myimplementation7.cpp" />
+		<Unit filename="shader.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="stb_image.cpp" />
+		<Unit filename="stb_image.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="usershader.cpp" />
+		<Unit filename="usetexture.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
