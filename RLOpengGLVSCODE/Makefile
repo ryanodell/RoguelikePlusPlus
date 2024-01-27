@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -g
+CXXFLAGS = -Wall
 
 SOURCES = main.cpp
 EXECUTABLE = myprogram

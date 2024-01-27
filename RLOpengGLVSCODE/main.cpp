@@ -1,7 +1,7 @@
 #include <iostream>
 
 int main() {
-    std::cout << "Hello, Makefile!" << std::endl;
-    
+    int test = 1;
+    std::cout << "Hello, Makefile! " << test << std::endl;    
     return 0;
 }
