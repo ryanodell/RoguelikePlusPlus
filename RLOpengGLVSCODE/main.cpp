@@ -12,6 +12,8 @@ const int SCREEN_HEIGHT = 480;
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+
+	int test = 5;
     //The window we'll be rendering to
 	SDL_Window* window = NULL;
 	
