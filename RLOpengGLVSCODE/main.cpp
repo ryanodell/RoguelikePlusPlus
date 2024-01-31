@@ -1,8 +1,3 @@
-//g++ main.cpp -IC:\ExternalLibs\SDL2\include\SDL2 -LC:\ExternalLibs\SDL2\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 -o main
-// g++ main.cpp -IC:\ExternalLibs\SDL2\include\SDL2 -LC:\ExternalLibs\SDL2\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 -o main
-// g++ main.cpp -IC:\ExternalLibs\SDL2\include\SDL2 -LC:\ExternalLibs\SDL2\lib -w -lmingw32 -lSDL2main -lSDL2 -o main
-// g++ main.cpp -IC:\ExternalLibs\SDL2\include\SDL2 -LC:\ExternalLibs\SDL2\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 -o main
-
 #include <SDL.h>
 #include <windows.h>
 #include <iostream>
@@ -10,44 +5,57 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
+SDL_Surface* helloWorldSurface = NULL;
+SDL_Window* window = NULL;
+SDL_Surface* screenSurface = NULL;
+
+bool loadMedia(const char* path) {
+	helloWorldSurface = SDL_LoadBMP(path);
+	if(helloWorldSurface == NULL) {
+		printf("THere was an error loading %s. SDL Error: %s\n", path, SDL_GetError());
+		return false;
+	}
+	return true;
+}
+
+void close() {
+	SDL_FreeSurface(helloWorldSurface);
+	helloWorldSurface = NULL;
+	SDL_DestroyWindow(window);
+	window = NULL;
+	SDL_Quit();
+}
+
+bool init() {
+	if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+		printf("SDL Could not be initialized. SDL Error: %s\n", SDL_GetError());
+		return false;
+	} else {
+		window = SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if(window == NULL) {
+			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+			return false;
+		} else {
+			screenSurface = SDL_GetWindowSurface(window);
+		}
+	}
+	return true;
+}
+
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    //The window we'll be rendering to
-	SDL_Window* window = NULL;
-	
-	//The surface contained by the window
-	SDL_Surface* screenSurface = NULL;
-
-	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
-	}
-	else {
-		//Create window
-		window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, 
-			SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-		if( window == NULL ) {
-			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+	if(!init()) {
+		printf("Failed to initialize\n");
+		return -1;
+	} else {
+		if(!loadMedia("assets/curses_square_16x16.bmp")) {
+			printf("Failed to load media\n");
+			return -1;
 		} else {
-			//Get window surface
-			screenSurface = SDL_GetWindowSurface( window );
-
-			//Fill the surface white
-			SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
-			
-			//Update the surface
-			SDL_UpdateWindowSurface( window );
-            
-            //Hack to get window to stay up
-            SDL_Event e; 
-			bool quit = false; 
-			while( quit == false ){ 
-				while( SDL_PollEvent( &e ) ){ 
-					if( e.type == SDL_QUIT ) 
-					quit = true; 
-				} 
-			}
+			SDL_BlitSurface(helloWorldSurface, NULL, screenSurface, NULL);
+ 			SDL_UpdateWindowSurface(window);
+			SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
 		}
-    }
+	}
     return 0;
 }
