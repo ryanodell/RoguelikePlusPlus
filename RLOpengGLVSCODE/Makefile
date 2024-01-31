@@ -3,7 +3,7 @@
 #and may not be redistributed without written permission.
 
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp
+OBJS = src\stretched_surface.cpp
 
 #CC specifies which compiler we're using
 CC = g++
@@ -20,7 +20,8 @@ LIBRARY_PATHS = -LC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\lib
 COMPILER_FLAGS = -w -g
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -mwindows -lmingw32 -lSDL2main -lSDL2
+# LINKER_FLAGS = -mwindows -lmingw32 -lSDL2main -lSDL2
+LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2
 
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = bin/main

@@ -5,13 +5,33 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-SDL_Surface* helloWorldSurface = NULL;
+SDL_Surface* imageSurface = NULL;
 SDL_Window* window = NULL;
 SDL_Surface* screenSurface = NULL;
 
+SDL_Surface* loadSurface(const char* path) {
+	//The final optimized image
+	SDL_Surface* optimizedSurface = NULL;
+	//Load image at specified path
+	SDL_Surface* loadedSurface = SDL_LoadBMP(path);
+	if( loadedSurface == NULL ) {
+		printf( "Unable to load image %s! SDL Error: %s\n", path, SDL_GetError() );
+	} else {
+		//Convert surface to screen format
+		optimizedSurface = SDL_ConvertSurface( loadedSurface, screenSurface->format, 0 );
+		if( optimizedSurface == NULL ) {
+			printf( "Unable to optimize image %s! SDL Error: %s\n", path, SDL_GetError() );
+		}
+
+		//Get rid of old loaded surface
+		SDL_FreeSurface( loadedSurface );
+	}
+	return optimizedSurface;
+}
+
 bool loadMedia(const char* path) {
-	helloWorldSurface = SDL_LoadBMP(path);
-	if(helloWorldSurface == NULL) {
+	imageSurface = loadSurface(path);
+	if(imageSurface == NULL) {
 		printf("THere was an error loading %s. SDL Error: %s\n", path, SDL_GetError());
 		return false;
 	}
@@ -19,8 +39,8 @@ bool loadMedia(const char* path) {
 }
 
 void close() {
-	SDL_FreeSurface(helloWorldSurface);
-	helloWorldSurface = NULL;
+	SDL_FreeSurface(imageSurface);
+	imageSurface = NULL;
 	SDL_DestroyWindow(window);
 	window = NULL;
 	SDL_Quit();
@@ -44,6 +64,7 @@ bool init() {
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+	printf("Test");
 	if(!init()) {
 		printf("Failed to initialize\n");
 		return -1;
@@ -52,7 +73,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			printf("Failed to load media\n");
 			return -1;
 		} else {
-			SDL_BlitSurface(helloWorldSurface, NULL, screenSurface, NULL);
+			//Original
+			// SDL_BlitSurface(imageSurface, NULL, screenSurface, NULL);
+
+			//Updated:
+			SDL_Rect rect;
+			rect.x = 0;
+			rect.y = 0;
+			rect.w = SCREEN_WIDTH;
+			rect.h = SCREEN_HEIGHT;
+			SDL_BlitScaled(imageSurface, NULL, screenSurface, &rect);
  			SDL_UpdateWindowSurface(window);
 			SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
 		}
