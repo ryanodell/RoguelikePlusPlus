@@ -23,7 +23,7 @@ COMPILER_FLAGS = -w -g
 LINKER_FLAGS = -mwindows -lmingw32 -lSDL2main -lSDL2
 
 #OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = main
+OBJ_NAME = bin/main
 
 #This is the target that compiles our executable
 all: $(OBJS)
