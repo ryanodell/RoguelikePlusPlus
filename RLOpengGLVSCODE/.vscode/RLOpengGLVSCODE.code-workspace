@@ -6,7 +6,8 @@
 	],
 	"settings": {
 		"files.associations": {
-			"ostream": "cpp"
+			"ostream": "cpp",
+			"iostream": "cpp"
 		},
 		"files.exclude": {
 			"**/bin": true,

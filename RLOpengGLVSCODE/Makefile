@@ -1,5 +1,7 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = src\sdl_viewport_test.cpp
+OBJS = src\sdl_color_keying.cpp src/LTexture.cpp
+
+DEPS = src/LTexture.h
 
 #CC specifies which compiler we're using
 CC = g++
@@ -23,5 +25,5 @@ LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
 OBJ_NAME = bin/main
 
 #This is the target that compiles our executable
-all: $(OBJS)
+all: $(OBJS) $(DEPS)
 	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
