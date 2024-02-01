@@ -1,9 +1,5 @@
-#Copyright Notice:
-#The files within this zip file are copyrighted by Lazy Foo' Productions (2004-2014)
-#and may not be redistributed without written permission.
-
 #OBJS specifies which files to compile as part of the project
-OBJS = src\sdl_image_test.cpp
+OBJS = src\sdl_texture_test.cpp
 
 #CC specifies which compiler we're using
 CC = g++
