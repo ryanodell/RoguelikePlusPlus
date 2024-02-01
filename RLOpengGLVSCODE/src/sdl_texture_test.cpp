@@ -6,7 +6,6 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-SDL_Surface* imageSurface = NULL;
 SDL_Window* window = NULL;
 SDL_Surface* screenSurface = NULL;
 
@@ -33,20 +32,14 @@ SDL_Surface* loadSurface(const char* path) {
 	return optimizedSurface;
 }
 
-bool loadMedia(const char* path) {
-	imageSurface = loadSurface(path);
-	if(imageSurface == NULL) {
-		printf("There was an error loading %s. SDL Error: %s\n", path, SDL_GetError());
-		return false;
-	}
-	return true;
-}
-
 void close() {
-	SDL_FreeSurface(imageSurface);
-	imageSurface = NULL;
+	SDL_DestroyTexture(sTexture);
+	sTexture = NULL;
+	SDL_DestroyRenderer(sRenderer);
 	SDL_DestroyWindow(window);
+	sRenderer = NULL;
 	window = NULL;
+	IMG_Quit();
 	SDL_Quit();
 }
 
@@ -71,6 +64,9 @@ bool init() {
 		printf("SDL Could not be initialized. SDL Error: %s\n", SDL_GetError());
 		return false;
 	} else {
+		if( !SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1" )) {
+			printf( "Warning: Linear texture filtering not enabled!" );
+		}
 		window = SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, 
 			SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if(window == NULL) {
@@ -94,6 +90,15 @@ bool init() {
 	return true;
 }
 
+bool loadMedia() {
+	sTexture = loadTexture("../assets/curses_square_16x16.png");
+	if(sTexture == NULL) {
+		printf("Failed to load texture image\n");
+		return false;
+	}
+	return true;
+}
+
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	printf("Fork");
@@ -101,22 +106,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		printf("Failed to initialize\n");
 		return -1;
 	} else {
-		if(!loadMedia("../assets/curses_square_16x16.png")) {
+		if(!loadMedia()) {
 			printf("Failed to load media\n");
 			return -1;
 		} else {
-			//Original
-			// SDL_BlitSurface(imageSurface, NULL, screenSurface, NULL);
-
-			//Updated:
-			SDL_Rect rect;
-			rect.x = 0;
-			rect.y = 0;
-			rect.w = SCREEN_WIDTH;
-			rect.h = SCREEN_HEIGHT;
-			SDL_BlitScaled(imageSurface, NULL, screenSurface, &rect);
- 			SDL_UpdateWindowSurface(window);
-			SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
+			bool quit = false;
+			SDL_Event e;
+			while( !quit ) {
+				while( SDL_PollEvent( &e ) != 0 ) {
+					if( e.type == SDL_QUIT ) {
+						quit = true;
+					}
+				}
+				SDL_RenderClear(sRenderer);
+				SDL_RenderCopy(sRenderer, sTexture, NULL, NULL);
+				SDL_RenderPresent(sRenderer);
+			}
 		}
 	}
     return 0;
