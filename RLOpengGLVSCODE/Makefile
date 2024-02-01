@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = src\sdl_texture_test.cpp
+OBJS = src\sdl_viewport_test.cpp
 
 #CC specifies which compiler we're using
 CC = g++
