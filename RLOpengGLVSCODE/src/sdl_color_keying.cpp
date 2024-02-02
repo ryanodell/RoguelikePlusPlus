@@ -8,32 +8,14 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
 SDL_Window* window = NULL;
-SDL_Surface* screenSurface = NULL;
-
-SDL_Texture* sTexture = NULL;
 SDL_Renderer* sRenderer = NULL;
 
-LTexture fooTexture = NULL;
-LTexture backgroundTexture = NULL;
-
-SDL_Surface* loadSurface(const char* path) {
-	SDL_Surface* optimizedSurface = NULL;
-	SDL_Surface* loadedSurface = IMG_Load(path);
-	if( loadedSurface == NULL ) {
-		printf( "Unable to load image %s! SDL Error: %s\n", path, SDL_GetError() );
-	} else {
-		optimizedSurface = SDL_ConvertSurface( loadedSurface, screenSurface->format, 0 );
-		if( optimizedSurface == NULL ) {
-			printf( "Unable to optimize image %s! SDL Error: %s\n", path, SDL_GetError() );
-		}
-		SDL_FreeSurface( loadedSurface );
-	}
-	return optimizedSurface;
-}
+LTexture fooTexture;
+LTexture backgroundTexture;
 
 void close() {
-	SDL_DestroyTexture(sTexture);
-	sTexture = NULL;
+	fooTexture.free();
+	backgroundTexture.free();
 	SDL_DestroyRenderer(sRenderer);
 	SDL_DestroyWindow(window);
 	sRenderer = NULL;
@@ -59,7 +41,7 @@ SDL_Texture* loadTexture(const char* path) {
 
 
 bool init() {
-	if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("SDL Could not be initialized. SDL Error: %s\n", SDL_GetError());
 		return false;
 	} else {
@@ -83,16 +65,18 @@ bool init() {
 				printf("SDL_Image could not be initialized. SDL_Image Error: %s\n", IMG_GetError());
 				return false;
 			}
-			screenSurface = SDL_GetWindowSurface(window);
 		}
 	}
 	return true;
 }
 
 bool loadMedia() {
-	sTexture = loadTexture("../assets/curses_square_16x16.png");
-	if(sTexture == NULL) {
-		printf("Failed to load texture image\n");
+	if(!fooTexture.loadFromFile(sRenderer, "../assets/foo.png")) {
+		printf("Failed to load foo texture");
+		return false;
+	}
+	if(!backgroundTexture.loadFromFile(sRenderer, "../assets/background.png")) {
+		printf("Failed to load background texture");
 		return false;
 	}
 	return true;
@@ -117,33 +101,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 						quit = true;
 					}
 				}
+				SDL_SetRenderDrawColor(sRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(sRenderer);
-
-				SDL_Rect topLeftViewport;
-				topLeftViewport.x = 0;
-				topLeftViewport.y = 0;
-				topLeftViewport.w = SCREEN_WIDTH / 2;
-				topLeftViewport.h = SCREEN_HEIGHT / 2;
-				SDL_RenderSetViewport( sRenderer, &topLeftViewport );
-				SDL_RenderCopy(sRenderer, sTexture, NULL, NULL);
-
-				//Top right viewport
-				SDL_Rect topRightViewport;
-				topRightViewport.x = SCREEN_WIDTH / 2;
-				topRightViewport.y = 0;
-				topRightViewport.w = SCREEN_WIDTH / 2;
-				topRightViewport.h = SCREEN_HEIGHT / 2;
-				SDL_RenderSetViewport(sRenderer, &topRightViewport);
-				SDL_RenderCopy(sRenderer, sTexture, NULL, NULL);
-
-				SDL_Rect bottomViewport;
-				bottomViewport.x = 0;
-				bottomViewport.y = SCREEN_HEIGHT / 2;
-				bottomViewport.w = SCREEN_WIDTH;
-				bottomViewport.h = SCREEN_HEIGHT / 2;
-				SDL_RenderSetViewport( sRenderer, &bottomViewport );
-				SDL_RenderCopy( sRenderer, sTexture, NULL, NULL );
-
+				backgroundTexture.render(sRenderer, 0, 0);
+				fooTexture.render(sRenderer, 240, 190 );
 				SDL_RenderPresent(sRenderer);
 			}
 		}

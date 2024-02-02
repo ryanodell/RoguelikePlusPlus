@@ -1,16 +1,15 @@
 #include "LTexture.h"
-LTexture::LTexture(SDL_Renderer* renderer) {
+LTexture::LTexture() {
     mTexture = NULL;
     mWidth = 0;
     mHeight = 0;
-    mRenderer = renderer;
 }
 
 LTexture::~LTexture() {
     free();
 }
 
-bool LTexture::loadFromFile(const char *path) {
+bool LTexture::loadFromFile(SDL_Renderer* renderer, const char *path) {
     free();
     SDL_Texture* newTexture = NULL;
 
@@ -20,27 +19,33 @@ bool LTexture::loadFromFile(const char *path) {
         return false;
     } else {
         SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
-        newTexture = SDL_CreateTextureFromSurface(mRenderer, loadedSurface);
+        newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
         if(newTexture == NULL) {
             printf("Unable to create texture %s from surface. SDL_Error: %s'n", path, SDL_GetError());
         } else {
             mWidth = loadedSurface->w;
             mHeight = loadedSurface->h;
         }
+        mTexture = newTexture;
         SDL_FreeSurface(loadedSurface);
     }
     if(mTexture == NULL) {
         printf("Somehow texture %s still is null, good luck from here lol", path);
         return false;
     }
-    mTexture = newTexture;
     return true;
 }
 
-void LTexture::render(int x, int y) {
+void LTexture::render(SDL_Renderer* renderer, int x, int y) {
     SDL_Rect renderQuad = {x, y, mWidth, mHeight};
-    SDL_RenderCopy(mRenderer, mTexture, NULL, &renderQuad);
+    SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 }
 
 void LTexture::free() {
+    if(mTexture != NULL) {
+        SDL_DestroyTexture(mTexture);
+        mTexture = NULL;
+        mWidth = 0;
+        mHeight = 0;
+    }
 }
