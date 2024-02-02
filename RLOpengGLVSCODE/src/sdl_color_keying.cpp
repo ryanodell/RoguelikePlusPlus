@@ -13,6 +13,9 @@ SDL_Surface* screenSurface = NULL;
 SDL_Texture* sTexture = NULL;
 SDL_Renderer* sRenderer = NULL;
 
+LTexture fooTexture = NULL;
+LTexture backgroundTexture = NULL;
+
 SDL_Surface* loadSurface(const char* path) {
 	SDL_Surface* optimizedSurface = NULL;
 	SDL_Surface* loadedSurface = IMG_Load(path);
