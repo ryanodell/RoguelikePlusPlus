@@ -36,8 +36,12 @@ bool LTexture::loadFromFile(SDL_Renderer* renderer, const char *path) {
     return true;
 }
 
-void LTexture::render(SDL_Renderer* renderer, int x, int y) {
+void LTexture::render(SDL_Renderer *renderer, int x, int y, SDL_Rect *rect) {
     SDL_Rect renderQuad = {x, y, mWidth, mHeight};
+    if(rect != NULL) {
+        renderQuad.w = rect->w;
+        renderQuad.h = rect->h;
+    }
     SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 }
 

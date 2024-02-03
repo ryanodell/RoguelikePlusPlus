@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = src\sdl_color_keying.cpp src/LTexture.cpp
+OBJS = src\sdl_sprite_sheet.cpp src/LTexture.cpp
 
 DEPS = src/LTexture.h
 
