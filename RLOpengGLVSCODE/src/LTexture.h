@@ -11,6 +11,7 @@ public:
     bool loadFromFile(SDL_Renderer* renderer, const char* path);
     void render(SDL_Renderer* renderer, int x, int y, SDL_Rect* rect = NULL);
     void free();
+    void setColor(Uint8 red, Uint8 green, Uint8 blue);
     int getWidth() { return mWidth; };
     int getHeight() { return mHeight; };
 private:

@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = src\sdl_sprite_sheet.cpp src/LTexture.cpp
+OBJS = src\sdl_color_keying_modulation.cpp src/LTexture.cpp
 
 DEPS = src/LTexture.h
 
@@ -7,10 +7,10 @@ DEPS = src/LTexture.h
 CC = g++
 
 #INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -IC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\include\SDL2 -IC:\ExternalLibs\SDL2_image\SDL2_image-2.8.2\i686-w64-mingw32\include\SDL2
+INCLUDE_PATHS = -IC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\include\SDL2 -IC:\ExternalLibs\SDL2_image\SDL2_image-2.8.2\i686-w64-mingw32\include\SDL2 -IC:\ExternalLibs\SDL2_ttf\SDL2_ttf-2.22.0\i686-w64-mingw32\include\SDL2
 
 #LIBRARY_PATHS specifies the additional library paths we'll need
-LIBRARY_PATHS = -LC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\lib -LC:\ExternalLibs\SDL2_image\SDL2_image-2.8.2\i686-w64-mingw32\lib
+LIBRARY_PATHS = -LC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\lib -LC:\ExternalLibs\SDL2_image\SDL2_image-2.8.2\i686-w64-mingw32\lib -LC:\ExternalLibs\SDL2_ttf\SDL2_ttf-2.22.0\i686-w64-mingw32\lib
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
