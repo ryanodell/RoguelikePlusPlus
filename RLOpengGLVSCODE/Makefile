@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = src\sdl_color_keying_modulation.cpp src/LTexture.cpp
+OBJS = src\sdl_ttf_test.cpp src/LTexture.cpp
 
 DEPS = src/LTexture.h
 
@@ -19,7 +19,7 @@ COMPILER_FLAGS = -w -g
 
 #LINKER_FLAGS specifies the libraries we're linking against
 # LINKER_FLAGS = -mwindows -lmingw32 -lSDL2main -lSDL2
-LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = bin/main
