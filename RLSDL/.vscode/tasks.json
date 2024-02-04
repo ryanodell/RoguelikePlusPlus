@@ -1,0 +1,21 @@
+{
+    "tasks": [
+        // {
+        //     "type": "shell",
+        //     "label": "build",
+        //     "command": "make",
+        //     "problemMatcher": [],
+        //     "group": "build"
+        // },
+        {
+            "label": "build-debug",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "CXXFLAGS=-g"
+            ],
+            "group": "build"
+        }
+    ],
+    "version": "2.0.0"
+}

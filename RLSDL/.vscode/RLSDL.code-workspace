@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"ostream": "cpp",
+			"iostream": "cpp"
+		},
+		"files.exclude": {
+			"**/bin": true,
+			"*SDL2.dll*": true,
+			"*SDL2_image.dll*": true,
+			"*SDL2_ttf.dll*": true
+		}
+	}
+}
