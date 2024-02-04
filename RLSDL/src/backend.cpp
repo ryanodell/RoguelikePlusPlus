@@ -40,14 +40,27 @@ bool Game::Init() {
 }
 void Game::Run() {
     TextureManager textureManager;
-
+    textureManager.Init(mRenderer);
+    Texture2D* tex = textureManager.LoadTexture("../assets/curses_square_16x16.png");
+    Texture2D* tex2 = textureManager.LoadTexture("../assets/curses_square_16x16.png");
+    bool quit = false;
+	SDL_Event e;
+	while( !quit ) {
+		while( SDL_PollEvent( &e ) != 0 ) {
+			if( e.type == SDL_QUIT ) {
+				quit = true;
+			}
+		}
+		SDL_RenderClear(mRenderer);
+		SDL_RenderCopy(mRenderer, tex->GetInternalTexture(), NULL, NULL);
+		SDL_RenderPresent(mRenderer);
+	}
 }
 ///////////////////////////END GAME////////////////////////////////////////
 
 ///////////////////////////TEXTURE2D////////////////////////////////////////
-Texture2D::Texture2D(SDL_Texture* texture) {
-    mInternalTexture = texture;
-}
+Texture2D::Texture2D(SDL_Texture* texture, int width, int height) 
+    : mInternalTexture(texture), mWidth(width), mHeight(height) { }
 
 Texture2D::~Texture2D() {
     if(mInternalTexture != NULL) {
@@ -62,7 +75,7 @@ Texture2D::~Texture2D() {
 
 ///////////////////////////TEXTUREMANAGER////////////////////////////////////////
 void TextureManager::Init(SDL_Renderer *renderer) {
-    //mRenderer = &renderer;
+    mRenderer = renderer;
 }
 
 Texture2D* TextureManager::LoadTexture(const char* name) {
@@ -87,7 +100,7 @@ bool TextureManager::_loadTextureCache(const char *name) {
             printf("Failed to create texture from surface | SDL_Error: %s\n", SDL_GetError());
             return false;
         } else {
-            mTextureCache[name] = std::make_shared<Texture2D>(newTexture);
+            mTextureCache[name] = std::make_shared<Texture2D>(newTexture, loadedSurface->w, loadedSurface->h);
             SDL_FreeSurface(loadedSurface);
         }
     }

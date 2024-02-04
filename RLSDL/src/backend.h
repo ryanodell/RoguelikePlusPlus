@@ -28,7 +28,8 @@ class Texture2D {
 public:
     int GetWidt() const { return mWidth; };
     int GetHeight() const { return mHeight; };
-    Texture2D(SDL_Texture* texture);
+    SDL_Texture* GetInternalTexture() const { return mInternalTexture; };
+    Texture2D(SDL_Texture* texture, int width, int height);
     ~Texture2D();
 private:
     SDL_Texture* mInternalTexture;
@@ -41,9 +42,7 @@ public:
     void Init(SDL_Renderer* renderer);
     Texture2D* LoadTexture(const char *name);
 private:
-    // std::unordered_map<const char*, Texture2D*> mTextureCache;
     std::unordered_map<const char*, std::shared_ptr<Texture2D>> mTextureCache;
-    //std::unordered_map<const char*, std::shared_ptr<Texture2D>> classMap;
     bool _loadTextureCache(const char* name);
     SDL_Renderer* mRenderer;
 };
