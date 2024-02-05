@@ -9,7 +9,11 @@ DEPS = src/backend.h
 CC = g++
 
 #INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -IC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\include\SDL2 -IC:\ExternalLibs\SDL2_image\SDL2_image-2.8.2\i686-w64-mingw32\include\SDL2 -IC:\ExternalLibs\SDL2_ttf\SDL2_ttf-2.22.0\i686-w64-mingw32\include\SDL2
+#INCLUDE_PATHS = -IC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\include\SDL2 -IC:\ExternalLibs\SDL2_image\SDL2_image-2.8.2\i686-w64-mingw32\include\SDL2 -IC:\ExternalLibs\SDL2_ttf\SDL2_ttf-2.22.0\i686-w64-mingw32\include\SDL2
+INCLUDE_PATHS = \
+    -IC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\include\SDL2 \
+    -IC:\ExternalLibs\SDL2_image\SDL2_image-2.8.2\i686-w64-mingw32\include\SDL2 \
+    -IC:\ExternalLibs\SDL2_ttf\SDL2_ttf-2.22.0\i686-w64-mingw32\include\SDL
 
 #LIBRARY_PATHS specifies the additional library paths we'll need
 LIBRARY_PATHS = -LC:\ExternalLibs\SDL2-2.29.3\i686-w64-mingw32\lib -LC:\ExternalLibs\SDL2_image\SDL2_image-2.8.2\i686-w64-mingw32\lib -LC:\ExternalLibs\SDL2_ttf\SDL2_ttf-2.22.0\i686-w64-mingw32\lib
