@@ -39,6 +39,7 @@ bool Game::Init() {
     return true;
 }
 void Game::Run() {
+    Renderer rend = Renderer(mRenderer);
     TextureManager textureManager;
     textureManager.Init(mRenderer);
     Texture2D* tex = textureManager.LoadTexture("../assets/curses_square_16x16.png");
@@ -51,8 +52,10 @@ void Game::Run() {
 				quit = true;
 			}
 		}
+        SDL_Rect rect { 16, 0, 16, 16 };
 		SDL_RenderClear(mRenderer);
-		SDL_RenderCopy(mRenderer, tex->GetInternalTexture(), NULL, NULL);
+        rend.Draw(tex, 0, 0, rect);
+		//SDL_RenderCopy(mRenderer, tex->GetInternalTexture(), &rect, NULL);
 		SDL_RenderPresent(mRenderer);
 	}
 }
@@ -106,3 +109,20 @@ bool TextureManager::_loadTextureCache(const char *name) {
     }
 }
 ///////////////////////////END TEXTUREMANAGER////////////////////////////////////////
+
+/////////////////////////////// RENDERER/////////////////////////////////////////////
+Renderer::Renderer(SDL_Renderer *renderer) : mRenderer(renderer) { }
+
+void Renderer::Draw(Texture2D *texture, float x, float y, SDL_Rect rec) {
+    SDL_Rect dst = {x, y, 16, 16};
+    SDL_RenderCopy(mRenderer, texture->GetInternalTexture(), &rec, &dst);
+/*
+    SDL_Rect renderQuad = {x, y, mWidth, mHeight};
+    if(rect != NULL) {
+        renderQuad.w = rect->w;
+        renderQuad.h = rect->h;
+    }
+    SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
+*/
+}
+////////////////////////////////END RENDERER////////////////////////////////////////

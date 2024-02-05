@@ -47,5 +47,12 @@ private:
     SDL_Renderer* mRenderer;
 };
 
+class Renderer {
+public:
+    Renderer(SDL_Renderer* renderer);
+    void Draw(Texture2D* texture, float x, float y, SDL_Rect rec);
+private:
+    SDL_Renderer* mRenderer;
+};
 
 #endif
