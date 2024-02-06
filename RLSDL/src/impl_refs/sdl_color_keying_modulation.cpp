@@ -131,7 +131,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 						}
 					}
 				}
-				SDL_SetRenderDrawColor(sRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_SetRenderDrawColor(sRenderer, 0x01, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(sRenderer);
 				colorTexture.setColor( r, g, b );
 				colorTexture.render(sRenderer, 0, 0 );
