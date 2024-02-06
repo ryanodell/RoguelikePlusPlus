@@ -7,6 +7,18 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+struct Vector2D {
+public:
+    Vector2D();
+    float GetX() const { return mX; };
+    float GetY() const { return mY; };
+    void SetX(float x) { mX = x; };
+    void SetY(float y) {mY = y; };
+private:
+    float mX;
+    float mY;
+};
+
 class Game {
 public:
     Game(int width, int height, const char* windowTitle);
@@ -50,7 +62,7 @@ private:
 class Renderer {
 public:
     Renderer(SDL_Renderer* renderer);
-    void Draw(Texture2D* texture, float x, float y, SDL_Rect rec);
+    void Draw(Texture2D* texture, float x, float y, SDL_Rect rec, SDL_Color color);
 private:
     SDL_Renderer* mRenderer;
 };

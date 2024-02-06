@@ -53,10 +53,9 @@ void Game::Run() {
 			}
 		}
         SDL_Rect rect { 16, 0, 16, 16 };
-		//SDL_RenderClear(mRenderer);
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
-        rend.Draw(tex, 0, 0, rect);
-		//SDL_RenderCopy(mRenderer, tex->GetInternalTexture(), &rect, NULL);
+        SDL_Color color = { 255, 255, 255 };
+        rend.Draw(tex, 16, 32, rect, color);
 		SDL_RenderPresent(mRenderer);
 	}
 }
@@ -99,45 +98,30 @@ bool TextureManager::_loadTextureCache(const char *name) {
         printf("Failed to load surface | IMG_Error: %s\n", IMG_GetError());
         return false;
     } else {
-        newTexture = SDL_CreateTextureFromSurface(mRenderer, loadedSurface);
-        if(newTexture == NULL) {
+        SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat(loadedSurface, SDL_PIXELFORMAT_RGBA8888, 0);
+        Uint32 magentaColor = SDL_MapRGB(formattedSurface->format, 255, 0, 255);
+        SDL_SetColorKey(formattedSurface, SDL_TRUE, magentaColor);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(mRenderer, formattedSurface);
+        if(texture == NULL) {
             printf("Failed to create texture from surface | SDL_Error: %s\n", SDL_GetError());
             return false;
-        } else {
-            SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat(loadedSurface, SDL_PIXELFORMAT_RGBA8888, 0);
-            Uint32 magentaColor = SDL_MapRGB(formattedSurface->format, 255, 0, 255);
-            SDL_SetColorKey(formattedSurface, SDL_TRUE, magentaColor);
-
-            // Create texture from formatted surface
-            SDL_Texture* texture = SDL_CreateTextureFromSurface(mRenderer, formattedSurface);
-
-            // Uint32 magentaColor = SDL_MapRGB(loadedSurface->format, 255, 0, 255);
-            // SDL_SetColorKey(loadedSurface, SDL_TRUE, magentaColor);
-            mTextureCache[name] = std::make_shared<Texture2D>(texture, loadedSurface->w, loadedSurface->h);
-            SDL_FreeSurface(loadedSurface);
-            SDL_FreeSurface(formattedSurface);
         }
+        mTextureCache[name] = std::make_shared<Texture2D>(texture, loadedSurface->w, loadedSurface->h);
+        SDL_FreeSurface(loadedSurface);
+        SDL_FreeSurface(formattedSurface);
     }
 }
+
 ///////////////////////////END TEXTUREMANAGER////////////////////////////////////////
 
 /////////////////////////////// RENDERER/////////////////////////////////////////////
 Renderer::Renderer(SDL_Renderer *renderer) : mRenderer(renderer) { }
 
-void Renderer::Draw(Texture2D *texture, float x, float y, SDL_Rect rec) {
-    Uint8 r = 255;
-	Uint8 g = 255;
-	Uint8 b = 255;
-    SDL_SetTextureColorMod(texture->GetInternalTexture(), r, g, b);
-    SDL_Rect dst = {x, y, 16, 16};
+void Renderer::Draw(Texture2D *texture, float x, float y, SDL_Rect rec, SDL_Color color) {
+    SDL_SetTextureColorMod(texture->GetInternalTexture(), color.r, color.g, color.b);
+    // SDL_Rect dst = {x, y, rec.w, rec.h };
+    //*2 to double the size
+    SDL_Rect dst = {x, y, rec.w * 2, rec.h * 2};
     SDL_RenderCopy(mRenderer, texture->GetInternalTexture(), &rec, &dst);
-/*
-    SDL_Rect renderQuad = {x, y, mWidth, mHeight};
-    if(rect != NULL) {
-        renderQuad.w = rect->w;
-        renderQuad.h = rect->h;
-    }
-    SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
-*/
 }
 ////////////////////////////////END RENDERER////////////////////////////////////////
