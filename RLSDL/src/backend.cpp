@@ -54,7 +54,7 @@ void Game::Run() {
 		}
         SDL_Rect rect { 16, 0, 16, 16 };
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
-        SDL_Color color = { 255, 255, 255 };
+        SDL_Color color = { 225, 255, 225 };
         rend.Draw(tex, 16, 32, rect, color);
 		SDL_RenderPresent(mRenderer);
 	}
@@ -124,4 +124,9 @@ void Renderer::Draw(Texture2D *texture, float x, float y, SDL_Rect rec, SDL_Colo
     SDL_Rect dst = {x, y, rec.w * 2, rec.h * 2};
     SDL_RenderCopy(mRenderer, texture->GetInternalTexture(), &rec, &dst);
 }
+void Renderer::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, SDL_Color color) {
+    Draw(texture, position.X, position.Y, rec, color);
+}
 ////////////////////////////////END RENDERER////////////////////////////////////////
+
+Vector2D::Vector2D(float x, float y) : X(x), Y(y) { }

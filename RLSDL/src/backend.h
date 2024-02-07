@@ -9,15 +9,12 @@
 
 struct Vector2D {
 public:
-    Vector2D();
-    float GetX() const { return mX; };
-    float GetY() const { return mY; };
-    void SetX(float x) { mX = x; };
-    void SetY(float y) {mY = y; };
-private:
-    float mX;
-    float mY;
+    Vector2D(float x, float y);
+    float X;
+    float Y;    
 };
+
+//Vector2D::Vector2D(float x, float y) : X(x), Y(y) { };
 
 class Game {
 public:
@@ -63,6 +60,7 @@ class Renderer {
 public:
     Renderer(SDL_Renderer* renderer);
     void Draw(Texture2D* texture, float x, float y, SDL_Rect rec, SDL_Color color);
+    void Draw(Texture2D* texture, Vector2D position, SDL_Rect rec, SDL_Color color);
 private:
     SDL_Renderer* mRenderer;
 };
