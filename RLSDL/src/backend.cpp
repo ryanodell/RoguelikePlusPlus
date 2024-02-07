@@ -46,6 +46,15 @@ void Game::Run() {
     bool quit = false;
 	SDL_Event e;
     Vector2D position = Vector2D(16, 32);
+    float tileSize = 16;
+    SDL_Rect grassRect { 5 * tileSize, 0, tileSize, tileSize };
+    Vector2D tile1 = Vector2D(0 * tileSize, 0 * tileSize);
+    Vector2D tile2 = Vector2D(1 * tileSize, 0 * tileSize);
+    Vector2D tile3 = Vector2D(2 * tileSize, 0 * tileSize);
+
+    Vector2D tile4 = Vector2D(0 * tileSize, 1 * tileSize);
+    Vector2D tile5 = Vector2D(0 * tileSize, 2 * tileSize);
+    Vector2D tile6 = Vector2D(0 * tileSize, 3 * tileSize);
 	while( !quit ) {
 		while( SDL_PollEvent( &e ) != 0 ) {
 			if( e.type == SDL_QUIT ) {
@@ -55,18 +64,12 @@ void Game::Run() {
 					case SDLK_w:
 					position.Y -= 16;
 					break;
-					
-					//Decrease red
 					case SDLK_a:
 					position.X -= 16;
 					break;
-					
-					//Decrease green
 					case SDLK_s:
 					position.Y += 16;
 					break;
-					
-					//Decrease blue
 					case SDLK_d:
 					position.X += 16;
 					break;
@@ -77,8 +80,16 @@ void Game::Run() {
         SDL_Rect rect { 16, 0, 16, 16 };
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
         SDL_Color color = { 225, 255, 225 };
+        SDL_Color grassColor = { 150, 160, 24 };
         // rend.Draw(tex, 16, 32, rect, color);
+        rend.Draw(tex, tile1, grassRect, grassColor);
+        rend.Draw(tex, tile2, grassRect, grassColor);
+        rend.Draw(tex, tile3, grassRect, grassColor);
+        rend.Draw(tex, tile4, grassRect, grassColor);
+        rend.Draw(tex, tile5, grassRect, grassColor);
+        rend.Draw(tex, tile6, grassRect, grassColor);
         rend.Draw(tex, position, rect, color);
+        
 		SDL_RenderPresent(mRenderer);
 	}
 }
@@ -142,9 +153,9 @@ Renderer::Renderer(SDL_Renderer *renderer) : mRenderer(renderer) { }
 
 void Renderer::Draw(Texture2D *texture, float x, float y, SDL_Rect rec, SDL_Color color) {
     SDL_SetTextureColorMod(texture->GetInternalTexture(), color.r, color.g, color.b);
-    // SDL_Rect dst = {x, y, rec.w, rec.h };
+     SDL_Rect dst = {x, y, rec.w, rec.h };
     //*2 to double the size
-    SDL_Rect dst = {x, y, rec.w * 2, rec.h * 2};
+    //SDL_Rect dst = {x, y, rec.w * 2, rec.h * 2};
     SDL_RenderCopy(mRenderer, texture->GetInternalTexture(), &rec, &dst);
 }
 void Renderer::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, SDL_Color color) {
