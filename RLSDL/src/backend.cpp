@@ -43,19 +43,42 @@ void Game::Run() {
     TextureManager textureManager;
     textureManager.Init(mRenderer);
     Texture2D* tex = textureManager.LoadTexture("../assets/curses_square_16x16.png");
-    Texture2D* tex2 = textureManager.LoadTexture("../assets/curses_square_16x16.png");
     bool quit = false;
 	SDL_Event e;
+    Vector2D position = Vector2D(16, 32);
 	while( !quit ) {
 		while( SDL_PollEvent( &e ) != 0 ) {
 			if( e.type == SDL_QUIT ) {
 				quit = true;
-			}
+			} else if(e.type == SDL_KEYDOWN) {
+				switch(e.key.keysym.sym) {
+					case SDLK_w:
+					position.Y -= 16;
+					break;
+					
+					//Decrease red
+					case SDLK_a:
+					position.X -= 16;
+					break;
+					
+					//Decrease green
+					case SDLK_s:
+					position.Y += 16;
+					break;
+					
+					//Decrease blue
+					case SDLK_d:
+					position.X += 16;
+					break;
+				}
+			}        
 		}
+        SDL_RenderClear(mRenderer);
         SDL_Rect rect { 16, 0, 16, 16 };
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
         SDL_Color color = { 225, 255, 225 };
-        rend.Draw(tex, 16, 32, rect, color);
+        // rend.Draw(tex, 16, 32, rect, color);
+        rend.Draw(tex, position, rect, color);
 		SDL_RenderPresent(mRenderer);
 	}
 }
