@@ -46,6 +46,7 @@ void Game::Run() {
     bool quit = false;
 	SDL_Event e;
     Vector2D position = Vector2D(16, 32);
+    float scale = 2.5f;
     float tileSize = 16;
     SDL_Rect grassRect { 5 * tileSize, 0, tileSize, tileSize };
     Vector2D tile1 = Vector2D(0 * tileSize, 0 * tileSize);
@@ -81,14 +82,14 @@ void Game::Run() {
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
         SDL_Color color = { 225, 255, 225 };
         SDL_Color grassColor = { 150, 160, 24 };
-        // rend.Draw(tex, 16, 32, rect, color);
-        rend.Draw(tex, tile1, grassRect, grassColor);
-        rend.Draw(tex, tile2, grassRect, grassColor);
-        rend.Draw(tex, tile3, grassRect, grassColor);
-        rend.Draw(tex, tile4, grassRect, grassColor);
-        rend.Draw(tex, tile5, grassRect, grassColor);
-        rend.Draw(tex, tile6, grassRect, grassColor);
-        rend.Draw(tex, position, rect, color);
+        //rend.Draw(tex, 16, 32, rect, color);
+        rend.Draw(tex, tile1, grassRect, scale, grassColor);
+        rend.Draw(tex, tile2, grassRect, scale, grassColor);
+        rend.Draw(tex, tile3, grassRect, scale, grassColor);
+        rend.Draw(tex, tile4, grassRect, scale, grassColor);
+        rend.Draw(tex, tile5, grassRect, scale, grassColor);
+        rend.Draw(tex, tile6, grassRect, scale, grassColor);
+        rend.Draw(tex, position, rect, scale, color);
         
 		SDL_RenderPresent(mRenderer);
 	}
@@ -160,6 +161,11 @@ void Renderer::Draw(Texture2D *texture, float x, float y, SDL_Rect rec, SDL_Colo
 }
 void Renderer::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, SDL_Color color) {
     Draw(texture, position.X, position.Y, rec, color);
+}
+void Renderer::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, float scale, SDL_Color color) {
+    SDL_SetTextureColorMod(texture->GetInternalTexture(), color.r, color.g, color.b);
+    SDL_Rect dst = {position.X * scale, position.Y * scale, rec.w * scale, rec.h * scale };
+    SDL_RenderCopy(mRenderer, texture->GetInternalTexture(), &rec, &dst);
 }
 ////////////////////////////////END RENDERER////////////////////////////////////////
 

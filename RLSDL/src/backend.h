@@ -61,6 +61,7 @@ public:
     Renderer(SDL_Renderer* renderer);
     void Draw(Texture2D* texture, float x, float y, SDL_Rect rec, SDL_Color color);
     void Draw(Texture2D* texture, Vector2D position, SDL_Rect rec, SDL_Color color);
+    void Draw(Texture2D* texture, Vector2D position, SDL_Rect rec, float scale, SDL_Color color);
 private:
     SDL_Renderer* mRenderer;
 };
