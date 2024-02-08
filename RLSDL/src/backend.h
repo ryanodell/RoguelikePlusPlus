@@ -14,6 +14,15 @@ public:
     float Y;    
 };
 
+struct Camera2D {
+public:
+    Camera2D();
+    Camera2D(Vector2D position, float zoom);
+    ~Camera2D();
+    Vector2D Position;
+    float Zoom;
+};
+
 //Vector2D::Vector2D(float x, float y) : X(x), Y(y) { };
 
 class Game {
@@ -53,6 +62,22 @@ public:
 private:
     std::unordered_map<const char*, std::shared_ptr<Texture2D>> mTextureCache;
     bool _loadTextureCache(const char* name);
+    SDL_Renderer* mRenderer;
+};
+
+class SpriteBatch {
+public:
+    SpriteBatch(SDL_Renderer* renderer);
+    ~SpriteBatch();
+    void Begin(Camera2D &cam);
+    void Draw(Texture2D* texture, float x, float y, SDL_Rect rec, SDL_Color color);
+    void Draw(Texture2D* texture, Vector2D position, SDL_Rect rec, SDL_Color color);
+    void Draw(Texture2D* texture, Vector2D position, SDL_Rect rec, float scale, SDL_Color color);
+    void End();
+private:
+    void flush();
+    size_t mMaxBatchSize;
+    Camera2D mCamera;
     SDL_Renderer* mRenderer;
 };
 

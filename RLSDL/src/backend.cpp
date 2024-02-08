@@ -169,4 +169,42 @@ void Renderer::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, float s
 }
 ////////////////////////////////END RENDERER////////////////////////////////////////
 
+Camera2D::Camera2D() : Position(0.0f, 0.0f), Zoom(1.0f) { }
+Camera2D::Camera2D(Vector2D position, float zoom) : Position(position), Zoom(zoom) { }
+Camera2D::~Camera2D() { }
+////////////////////////////////VECTOR2D////////////////////////////////////////////
 Vector2D::Vector2D(float x, float y) : X(x), Y(y) { }
+////////////////////////////////END VECTOR2D////////////////////////////////////////
+
+////////////////////////////////SPRITEBATCH///////////////////////////////////////////////
+SpriteBatch::SpriteBatch(SDL_Renderer *renderer) : mRenderer(renderer) { }
+
+SpriteBatch::~SpriteBatch() {
+}
+
+void SpriteBatch::Begin(Camera2D &cam) {
+
+}
+
+void SpriteBatch::Draw(Texture2D *texture, float x, float y, SDL_Rect rec, SDL_Color color) {
+
+}
+
+void SpriteBatch::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, SDL_Color color) {
+
+}
+
+void SpriteBatch::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, float scale, SDL_Color color) {
+
+}
+
+void SpriteBatch::End() {
+
+}
+
+void SpriteBatch::flush() {
+
+}
+
+////////////////////////////////END SPRITEBATCH////////////////////////////////////////////
+
