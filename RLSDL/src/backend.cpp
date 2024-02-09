@@ -177,34 +177,40 @@ Vector2D::Vector2D(float x, float y) : X(x), Y(y) { }
 ////////////////////////////////END VECTOR2D////////////////////////////////////////
 
 ////////////////////////////////SPRITEBATCH///////////////////////////////////////////////
-SpriteBatch::SpriteBatch(SDL_Renderer *renderer) : mRenderer(renderer) { }
-
-SpriteBatch::~SpriteBatch() {
+SpriteBatch::SpriteBatch(SDL_Renderer *renderer, size_t batchSize)  : mRenderer(renderer), mMaxBatchSize(batchSize) {
+    mBatch.reserve(mMaxBatchSize);
 }
+
+SpriteBatch::~SpriteBatch() { }
 
 void SpriteBatch::Begin(Camera2D &cam) {
 
 }
 
-void SpriteBatch::Draw(Texture2D *texture, float x, float y, SDL_Rect rec, SDL_Color color) {
-
-}
-
 void SpriteBatch::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, SDL_Color color) {
-
-}
-
-void SpriteBatch::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, float scale, SDL_Color color) {
-
+    mBatch.push_back({ texture, position, rec, color });
 }
 
 void SpriteBatch::End() {
-
+    
+    flush();
 }
 
 void SpriteBatch::flush() {
+    //Loop And Draw
 
+    //Clear
 }
 
 ////////////////////////////////END SPRITEBATCH////////////////////////////////////////////
 
+//////////////////////////////////SpriteBatchItem////////////////////////////////////////////
+SpriteBatchItem::SpriteBatchItem(Texture2D *texture, Vector2D position, SDL_Rect src, SDL_Color color) {
+    Texture = texture->GetInternalTexture();
+    X = position.X;
+    Y = position.Y;
+    SourceRect = src;
+    Color = color;
+}
+
+////////////////////////////////END SpriteBatchItem////////////////////////////////////////////

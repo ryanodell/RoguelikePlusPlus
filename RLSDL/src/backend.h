@@ -2,6 +2,7 @@
 #define BACKEND_H
 #include <stdio.h>
 #include <assert.h>
+#include <vector>
 #include <unordered_map>
 #include <memory>
 #include <SDL.h>
@@ -65,20 +66,29 @@ private:
     SDL_Renderer* mRenderer;
 };
 
+struct SpriteBatchItem {
+public:
+    SDL_Texture* Texture;
+    float X;
+    float Y;
+    SDL_Rect SourceRect;
+    SDL_Color Color;
+    SpriteBatchItem(Texture2D *texture, Vector2D position, SDL_Rect src, SDL_Color color);
+};
+
 class SpriteBatch {
 public:
-    SpriteBatch(SDL_Renderer* renderer);
+    SpriteBatch(SDL_Renderer* renderer, size_t batchSize = 500);
     ~SpriteBatch();
     void Begin(Camera2D &cam);
-    void Draw(Texture2D* texture, float x, float y, SDL_Rect rec, SDL_Color color);
     void Draw(Texture2D* texture, Vector2D position, SDL_Rect rec, SDL_Color color);
-    void Draw(Texture2D* texture, Vector2D position, SDL_Rect rec, float scale, SDL_Color color);
     void End();
 private:
     void flush();
     size_t mMaxBatchSize;
     Camera2D mCamera;
     SDL_Renderer* mRenderer;
+    std::vector<SpriteBatchItem> mBatch;
 };
 
 class Renderer {
