@@ -81,6 +81,7 @@ public:
     SpriteBatch(SDL_Renderer* renderer, size_t batchSize = 500);
     ~SpriteBatch();
     void Begin(Camera2D &cam);
+    void Begin();
     void Draw(Texture2D* texture, Vector2D position, SDL_Rect rec, SDL_Color color);
     void End();
 private:

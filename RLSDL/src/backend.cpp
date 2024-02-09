@@ -38,8 +38,10 @@ bool Game::Init() {
 	}
     return true;
 }
+
 void Game::Run() {
-    Renderer rend = Renderer(mRenderer);
+    // Renderer rend = Renderer(mRenderer);
+    SpriteBatch spriteBatch = SpriteBatch(mRenderer);
     TextureManager textureManager;
     textureManager.Init(mRenderer);
     Texture2D* tex = textureManager.LoadTexture("../assets/curses_square_16x16.png");
@@ -82,14 +84,24 @@ void Game::Run() {
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
         SDL_Color color = { 225, 255, 225 };
         SDL_Color grassColor = { 150, 160, 24 };
-        //rend.Draw(tex, 16, 32, rect, color);
-        rend.Draw(tex, tile1, grassRect, scale, grassColor);
-        rend.Draw(tex, tile2, grassRect, scale, grassColor);
-        rend.Draw(tex, tile3, grassRect, scale, grassColor);
-        rend.Draw(tex, tile4, grassRect, scale, grassColor);
-        rend.Draw(tex, tile5, grassRect, scale, grassColor);
-        rend.Draw(tex, tile6, grassRect, scale, grassColor);
-        rend.Draw(tex, position, rect, scale, color);
+        
+        spriteBatch.Begin();
+        spriteBatch.Draw(tex, tile1, grassRect, grassColor);
+        spriteBatch.Draw(tex, tile2, grassRect, grassColor);
+        spriteBatch.Draw(tex, tile3, grassRect, grassColor);
+        spriteBatch.Draw(tex, tile4, grassRect, grassColor);
+        spriteBatch.Draw(tex, tile5, grassRect, grassColor);
+        spriteBatch.Draw(tex, tile6, grassRect, grassColor);
+        spriteBatch.Draw(tex, position, rect, color);
+        spriteBatch.End();
+
+        // rend.Draw(tex, tile1, grassRect, scale, grassColor);
+        // rend.Draw(tex, tile2, grassRect, scale, grassColor);
+        // rend.Draw(tex, tile3, grassRect, scale, grassColor);
+        // rend.Draw(tex, tile4, grassRect, scale, grassColor);
+        // rend.Draw(tex, tile5, grassRect, scale, grassColor);
+        // rend.Draw(tex, tile6, grassRect, scale, grassColor);
+        // rend.Draw(tex, position, rect, scale, color);
         
 		SDL_RenderPresent(mRenderer);
 	}
@@ -187,6 +199,9 @@ void SpriteBatch::Begin(Camera2D &cam) {
 
 }
 
+void SpriteBatch::Begin() {
+}
+
 void SpriteBatch::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, SDL_Color color) {
     mBatch.push_back({ texture, position, rec, color });
 }
@@ -198,8 +213,14 @@ void SpriteBatch::End() {
 
 void SpriteBatch::flush() {
     //Loop And Draw
-
+    for(int i = 0; i < mBatch.size(); i++) {
+        SpriteBatchItem sprite = mBatch[i];        
+        SDL_SetTextureColorMod(sprite.Texture, sprite.Color.r, sprite.Color.g, sprite.Color.b);
+        SDL_Rect dst = {sprite.X, sprite.Y, sprite.SourceRect.w, sprite.SourceRect.h };
+        SDL_RenderCopy(mRenderer, sprite.Texture, &sprite.SourceRect, &dst);
+    }
     //Clear
+    mBatch.clear();
 }
 
 ////////////////////////////////END SPRITEBATCH////////////////////////////////////////////
@@ -214,3 +235,81 @@ SpriteBatchItem::SpriteBatchItem(Texture2D *texture, Vector2D position, SDL_Rect
 }
 
 ////////////////////////////////END SpriteBatchItem////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Version 1 before spriteBatching
+// void Game::Run() {
+//     Renderer rend = Renderer(mRenderer);
+//     TextureManager textureManager;
+//     textureManager.Init(mRenderer);
+//     Texture2D* tex = textureManager.LoadTexture("../assets/curses_square_16x16.png");
+//     bool quit = false;
+// 	SDL_Event e;
+//     Vector2D position = Vector2D(16, 32);
+//     float scale = 2.5f;
+//     float tileSize = 16;
+//     SDL_Rect grassRect { 5 * tileSize, 0, tileSize, tileSize };
+//     Vector2D tile1 = Vector2D(0 * tileSize, 0 * tileSize);
+//     Vector2D tile2 = Vector2D(1 * tileSize, 0 * tileSize);
+//     Vector2D tile3 = Vector2D(2 * tileSize, 0 * tileSize);
+
+//     Vector2D tile4 = Vector2D(0 * tileSize, 1 * tileSize);
+//     Vector2D tile5 = Vector2D(0 * tileSize, 2 * tileSize);
+//     Vector2D tile6 = Vector2D(0 * tileSize, 3 * tileSize);
+// 	while( !quit ) {
+// 		while( SDL_PollEvent( &e ) != 0 ) {
+// 			if( e.type == SDL_QUIT ) {
+// 				quit = true;
+// 			} else if(e.type == SDL_KEYDOWN) {
+// 				switch(e.key.keysym.sym) {
+// 					case SDLK_w:
+// 					position.Y -= 16;
+// 					break;
+// 					case SDLK_a:
+// 					position.X -= 16;
+// 					break;
+// 					case SDLK_s:
+// 					position.Y += 16;
+// 					break;
+// 					case SDLK_d:
+// 					position.X += 16;
+// 					break;
+// 				}
+// 			}        
+// 		}
+//         SDL_RenderClear(mRenderer);
+//         SDL_Rect rect { 16, 0, 16, 16 };
+//         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
+//         SDL_Color color = { 225, 255, 225 };
+//         SDL_Color grassColor = { 150, 160, 24 };
+//         //rend.Draw(tex, 16, 32, rect, color);
+//         rend.Draw(tex, tile1, grassRect, scale, grassColor);
+//         rend.Draw(tex, tile2, grassRect, scale, grassColor);
+//         rend.Draw(tex, tile3, grassRect, scale, grassColor);
+//         rend.Draw(tex, tile4, grassRect, scale, grassColor);
+//         rend.Draw(tex, tile5, grassRect, scale, grassColor);
+//         rend.Draw(tex, tile6, grassRect, scale, grassColor);
+//         rend.Draw(tex, position, rect, scale, color);
+        
+// 		SDL_RenderPresent(mRenderer);
+// 	}
+// }
