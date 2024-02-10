@@ -3,11 +3,15 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <windows.h>
+
+
 namespace Logger {
-    enum class LogLevel {
-        Info,
-        Warning,
-        Error
+    
+    enum class LogLevel : unsigned int {
+        Info = 0x00,
+        Warning = 0x01,
+        Error = 0x02,
+        None = 0x03
     };
     void LogInfo(const char* format, ...);
     void LogWarning(const char* format, ...);

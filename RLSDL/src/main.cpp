@@ -3,6 +3,7 @@
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
+Logger::LogLevel MIN_LOG_LEVEL = Logger::LogLevel::Info;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     Logger::LogInfo("..STARTING..");
@@ -12,5 +13,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         return -1;
     }
     game.Run();
+    //getchar();
     return 0;
 }
