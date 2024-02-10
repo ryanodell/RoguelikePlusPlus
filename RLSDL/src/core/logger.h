@@ -4,10 +4,16 @@
 #include <stdarg.h>
 #include <windows.h>
 namespace Logger {
-    void LogFormatted(const char* format, ...);
-    void LogInfo(const char* format);
-    void LogWarning(const char* format);
-    void LogError(const char* format);
+    enum class LogLevel {
+        Info,
+        Warning,
+        Error
+    };
+    void LogInfo(const char* format, ...);
+    void LogWarning(const char* format, ...);
+    void LogError(const char* format, ...);
+
+    void Log(LogLevel level, const char* format, ...);
 }
 
 
