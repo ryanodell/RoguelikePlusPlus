@@ -30,6 +30,11 @@ namespace Logger {
         vprintf(format, args);
         reset(args);
     }
+
+    /// @brief DO NOT USE THIS - WOULD RATHER CALL THIS INTERNALY IN LOG METHODS. BUT SOMETHING WASN'T WORKING
+    /// @param level 
+    /// @param format 
+    /// @param  
     void Log(LogLevel level, const char *format, ...)
     {
         //HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
