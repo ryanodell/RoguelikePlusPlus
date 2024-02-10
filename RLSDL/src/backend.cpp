@@ -51,6 +51,8 @@ void Game::Run() {
     float scale = 2.5f;
     float tileSize = 16;
     SDL_Rect grassRect { 5 * tileSize, 0, tileSize, tileSize };
+    int cols = 25;
+    int rows = 15;
     Vector2D tile1 = Vector2D(0 * tileSize, 0 * tileSize);
     Vector2D tile2 = Vector2D(1 * tileSize, 0 * tileSize);
     Vector2D tile3 = Vector2D(2 * tileSize, 0 * tileSize);
@@ -80,29 +82,22 @@ void Game::Run() {
 			}        
 		}
         SDL_RenderClear(mRenderer);
-        SDL_Rect rect { 16, 0, 16, 16 };
+        SDL_Rect playerRect { 16, 0, 16, 16 };
         SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
         SDL_Color color = { 225, 255, 225 };
         SDL_Color grassColor = { 150, 160, 24 };
         
         spriteBatch.Begin();
-        spriteBatch.Draw(tex, tile1, grassRect, grassColor);
-        spriteBatch.Draw(tex, tile2, grassRect, grassColor);
-        spriteBatch.Draw(tex, tile3, grassRect, grassColor);
-        spriteBatch.Draw(tex, tile4, grassRect, grassColor);
-        spriteBatch.Draw(tex, tile5, grassRect, grassColor);
-        spriteBatch.Draw(tex, tile6, grassRect, grassColor);
-        spriteBatch.Draw(tex, position, rect, color);
-        spriteBatch.End();
-
-        // rend.Draw(tex, tile1, grassRect, scale, grassColor);
-        // rend.Draw(tex, tile2, grassRect, scale, grassColor);
-        // rend.Draw(tex, tile3, grassRect, scale, grassColor);
-        // rend.Draw(tex, tile4, grassRect, scale, grassColor);
-        // rend.Draw(tex, tile5, grassRect, scale, grassColor);
-        // rend.Draw(tex, tile6, grassRect, scale, grassColor);
-        // rend.Draw(tex, position, rect, scale, color);
-        
+        for(int y = 0; y < rows; y++) {
+            for(int x = 0; x < cols; x++) {
+                if(position.X == x * tileSize && position.Y == y * tileSize) {
+                    continue;;
+                }
+                spriteBatch.Draw(tex, Vector2D(x * tileSize, y * tileSize), grassRect, grassColor);
+            }
+        }
+        spriteBatch.Draw(tex, position, playerRect, color);
+        spriteBatch.End();        
 		SDL_RenderPresent(mRenderer);
 	}
 }
@@ -195,7 +190,7 @@ SpriteBatch::SpriteBatch(SDL_Renderer *renderer, size_t batchSize)  : mRenderer(
 
 SpriteBatch::~SpriteBatch() { }
 
-void SpriteBatch::Begin(Camera2D &cam) {
+void SpriteBatch::Begin(const Camera2D &cam) {
 
 }
 
@@ -203,6 +198,9 @@ void SpriteBatch::Begin() {
 }
 
 void SpriteBatch::Draw(Texture2D *texture, Vector2D position, SDL_Rect rec, SDL_Color color) {
+    if(mBatch.size() > mMaxBatchSize) {
+        flush();
+    }
     mBatch.push_back({ texture, position, rec, color });
 }
 
