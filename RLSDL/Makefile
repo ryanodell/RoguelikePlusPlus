@@ -1,8 +1,8 @@
 # OBJS specifies which files to compile as part of the project
-OBJS = src\main.cpp src\backend.cpp
+OBJS = src\main.cpp src\backend.cpp src\core\logger.cpp
 
 # DEPS specifies the header files
-DEPS = src\backend.h
+DEPS = src\backend.h src\core\logger.h
 
 # CC specifies which compiler we're using
 CC = g++
