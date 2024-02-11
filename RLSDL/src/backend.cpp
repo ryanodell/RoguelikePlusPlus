@@ -40,6 +40,7 @@ bool Game::Init() {
 }
 
 void Game::Run() {
+    Texture2D tmp1 = Texture2D(nullptr, 0, 0);
     // Renderer rend = Renderer(mRenderer);
     SpriteBatch spriteBatch = SpriteBatch(mRenderer);
     TextureManager textureManager;
@@ -116,7 +117,6 @@ Texture2D::~Texture2D() {
     }
 }
 ///////////////////////////END TEXTURE2D////////////////////////////////////////
-
 
 ///////////////////////////TEXTUREMANAGER////////////////////////////////////////
 void TextureManager::Init(SDL_Renderer *renderer) {
