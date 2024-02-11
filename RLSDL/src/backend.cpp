@@ -40,8 +40,6 @@ bool Game::Init() {
 }
 
 void Game::Run() {
-    Texture2D tmp1 = Texture2D(nullptr, 0, 0);
-    // Renderer rend = Renderer(mRenderer);
     SpriteBatch spriteBatch = SpriteBatch(mRenderer);
     TextureManager textureManager;
     textureManager.Init(mRenderer);

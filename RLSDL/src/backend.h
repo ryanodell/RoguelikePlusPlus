@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "core/logger.h"
+#include "core/ecs.h"
 
 struct Vector2D {
 public:
