@@ -122,12 +122,12 @@ template <typename T>
 T &ComponentManager::GetComponent(Entity entity) {
     return GetComponentArray<T>()->GetData(entity);
 }
-//TODO - FIGURE THIS OUT
-// void ComponentManager::EntityDestroyed(Entity entity) {
-//     for(auto const& pair : mComponentArrays) {        
-//         auto const& component = pair.second;        
-//         component->EntityDestroyed(entity);
-//     }
-// }
+
+void ComponentManager::EntityDestroyed(Entity entity) {
+    for(auto const& pair : mComponentArrays) {        
+        auto const& component = pair.second;        
+        component->EntityDestroyed(entity);
+    }
+}
 //////////////////////////////////////COMPONENT MANAGER////////////////////////////////////
 
