@@ -93,7 +93,7 @@ public:
     template<typename T>
     void SetSignature(Signature signature);
     void EntityDestroyed(Entity entity);
-    void EntitySignatureChanged(Entity entity, Signature signature);
+    void EntitySignatureChanged(Entity entity, Signature entitySignature);
 private:
     std::unordered_map<const char*, Signature> mSignatures;
     std::unordered_map<const char*, std::shared_ptr<System>> mSystems;
