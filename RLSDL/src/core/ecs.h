@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <array>
 #include <queue>
+#include <unordered_map>
+#include <memory>
 #include "logger.h"
 #include "macros.h"
 
@@ -19,35 +21,62 @@ using Entity = std::uint32_t;
 
 class EntityManger {
 public:
-    EntityManger() {
-        for(Entity entity = 0; entity < MAX_ENTITIES; entity++) {
-            mAvailableEntities.push(entity);
-        }
-    }    
-    Entity CreateEntity() {
-        if(mLivingEntityCount > MAX_ENTITIES) {
-            Logger::LogError("Too many entities. Increase MAX_ENTITIES");
-            CRASH_PROGRAM;
-        }
-    }
-
-    void DestroyEntity(Entity entity) {
-        if(entity > MAX_ENTITIES) {
-            Logger::LogError("Entity %u is out of range.", entity);
-        }
-    }
-
-    void SetSignature(Entity entity, Signature signature) {
-        if(entity > MAX_ENTITIES) {
-            Logger::LogError("Entity %u is out of range.", entity);
-        }
-        
-    }
+    EntityManger();
+    Entity CreateEntity();
+    void DestroyEntity(Entity entity);
+    void SetSignature(Entity entity, Signature signature);
+    Signature GetSignature(Entity entity);
 
 private:
     std::queue<Entity> mAvailableEntities;
     std::array<Signature, MAX_ENTITIES> mSignatures;
     uint32_t mLivingEntityCount;
+};
+
+class IComponentArray {
+    virtual ~IComponentArray() = default;
+    virtual void EntityDestroyed(Entity entity) = 0;
+};
+
+template<typename T>
+class ComponentArray : public IComponentArray {
+public:
+    void InsertData(Entity entity, T component);
+    void RemoveData(Entity entity);
+    T& GetData(Entity entity);
+    void EntityDestroyed(Entity entity) override;
+private:
+    std::array<T, MAX_ENTITIES> mComponentArray;
+    std::unordered_map<Entity, size_t> mEntityToIndexMap;
+    std::unordered_map<size_t, Entity> mIndexToEntityMap;
+    size_t mSize;
+};
+
+class ComponentManager {
+    template<typename T>
+    void RegisterComponent();
+    template<typename T>
+    ComponentType GetComponentType();
+    template<typename T>
+    void AddComponent(Entity entity, T component);
+    template<typename T>
+    void RemoveComponent(Entity entity);
+    template<typename T>
+    T& GetComponent(Entity entity);
+    void EntityDestroyed(Entity entity);
+
+private:
+    std::unordered_map<const char*, ComponentType> mComponentTypes;
+    std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays;
+    ComponentType mNextComponentType;    
+    template<typename T>
+    std::shared_ptr<ComponentArray<T>> GetComponentArray() {
+        const char* typeName = typeid(T).name();
+        if(mComponentTypes.find(typeName) == mComponentTypes.end()){
+             Logger::LogError("Component not registered before use.");
+        }
+		return std::static_pointer_cast<ComponentArray<T>>(mComponentArrays[typeName]);
+    }
 };
 
 #endif

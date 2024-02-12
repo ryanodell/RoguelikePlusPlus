@@ -7,10 +7,7 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 Logger::LogLevel MIN_LOG_LEVEL = Logger::LogLevel::Info;
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {    
-
-                Logger::LogError("Too many entities. Increase MAX_ENTITIES");
-            CRASH_PROGRAM;
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     Logger::LogInfo("..STARTING..");
     Game game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, "RLSDL");
     if(!game.Init()) {
