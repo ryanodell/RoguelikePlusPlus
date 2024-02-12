@@ -131,3 +131,23 @@ void ComponentManager::EntityDestroyed(Entity entity) {
 }
 //////////////////////////////////////COMPONENT MANAGER////////////////////////////////////
 
+//////////////////////////////////////////SYSTEM///////////////////////////////////////////
+template <typename T>
+std::shared_ptr<T> SystemManger::RegisterSystem() {
+    return std::shared_ptr<T>();
+}
+
+template <typename T>
+void SystemManger::SetSignature(Signature signature) {
+    
+}
+
+//////////////////////////////////////////SYSTEM///////////////////////////////////////////
+
+void SystemManger::EntityDestroyed(Entity entity) {
+
+}
+
+void SystemManger::EntitySignatureChanged(Entity entity, Signature signature) {
+
+}

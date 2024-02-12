@@ -1,6 +1,7 @@
 #ifndef ECS_H
 #define ECS_H
 
+#include <set>
 #include <bitset>
 #include <cstdint>
 #include <array>
@@ -80,4 +81,23 @@ private:
     }
 };
 
+class System {
+public:
+    std::set<Entity> mEntities;
+};
+
+class SystemManger {
+public:
+    template<typename T>
+    std::shared_ptr<T> RegisterSystem();
+    template<typename T>
+    void SetSignature(Signature signature);
+    void EntityDestroyed(Entity entity);
+    void EntitySignatureChanged(Entity entity, Signature signature);
+private:
+    std::unordered_map<const char*, Signature> mSignatures;
+    std::unordered_map<const char*, std::shared_ptr<System>> mSystems;
+};
+
 #endif
+
