@@ -2,7 +2,7 @@
 OBJS = src\main.cpp src\backend.cpp src\core\logger.cpp src\core\ecs.cpp
 
 # DEPS specifies the header files
-DEPS = src\backend.h src\core\logger.h src\core\ecs.h src\core\macros.h
+DEPS = src\backend.h src\core\logger.h src\core\ecs.h src\core\macros.h src\math\vecs.h src\components.h
 
 # CC specifies which compiler we're using
 CC = g++
