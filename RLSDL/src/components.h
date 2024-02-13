@@ -11,4 +11,11 @@ struct Renderable {
     Vec4 Color;
 };
 
+struct Player { };
+
+struct Camera { 
+    Vec2 Position;
+    float Zoom;
+};
+
 #endif

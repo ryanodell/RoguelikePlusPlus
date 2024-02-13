@@ -9,12 +9,6 @@ const int SCREEN_HEIGHT = 480;
 Logger::LogLevel MIN_LOG_LEVEL = Logger::LogLevel::Info;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    
-    Renderable rend;
-    rend.Position = Vec2();
-    rend.Texture = nullptr;
-    
-
     Logger::LogInfo("..STARTING..");
     Game game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, "RLSDL");
     if(!game.Init()) {
