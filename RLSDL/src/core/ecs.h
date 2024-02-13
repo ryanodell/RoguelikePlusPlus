@@ -55,6 +55,7 @@ private:
 };
 
 class ComponentManager {
+public:
     template<typename T>
     void RegisterComponent();
     template<typename T>
