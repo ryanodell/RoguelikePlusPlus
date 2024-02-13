@@ -143,12 +143,10 @@ std::shared_ptr<T> SystemManger::RegisterSystem() {
 
 template <typename T>
 void SystemManger::SetSignature(Signature signature) {
-const char* typeName = typeid(T).name();
-
+    const char* typeName = typeid(T).name();
 	//assert(mSystems.find(typeName) != mSystems.end() && "System used before registered.");
 	mSignatures.insert({typeName, signature});
 }
-
 
 void SystemManger::EntityDestroyed(Entity entity) {
     for (auto const& pair : mSystems) {
@@ -170,3 +168,50 @@ void SystemManger::EntitySignatureChanged(Entity entity, Signature entitySignatu
 	}
 }
 //////////////////////////////////////////SYSTEM///////////////////////////////////////////
+
+void Coordinator::Init() {
+
+}
+
+Entity Coordinator::CreateEntity() {
+    return Entity();
+}
+
+void Coordinator::DestroyEntity(Entity entity) {
+
+}
+
+template <typename T>
+void Coordinator::RegisterComponent() {
+
+}
+
+template <typename T>
+void Coordinator::AddComponent(Entity entity, T component) {
+
+}
+
+template <typename T>
+void Coordinator::RemoveComponent(Entity entity) {
+
+}
+
+template <typename T>
+T &Coordinator::GetComponent(Entity entity) {
+
+}
+
+template <typename T>
+ComponentType Coordinator::GetComponentType() {
+    return ComponentType();
+}
+
+template <typename T>
+std::shared_ptr<T> Coordinator::RegisterSystem() {
+    return std::shared_ptr<T>();
+}
+
+template <typename T>
+void Coordinator::SetSystemSignature(Signature signature) {
+
+}
