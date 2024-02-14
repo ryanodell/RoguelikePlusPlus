@@ -9,7 +9,7 @@
 #include <SDL_image.h>
 #include "core/logger.h"
 #include "core/ecs.h"
-
+#include "components.h"
 
 
 struct Vector2D {

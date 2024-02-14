@@ -10,6 +10,7 @@
 #include <memory>
 #include "logger.h"
 #include "macros.h"
+#include "../components.h"
 
 //Butterfly wings or Swallow Tail Plant - Note Don't lose.
 
@@ -44,9 +45,23 @@ template<typename T>
 class ComponentArray : public IComponentArray {
 public:
     void InsertData(Entity entity, T component);
-    void RemoveData(Entity entity);
+    void RemoveData(Entity entity) {
+        size_t indexOfRemovedEntity = mEntityToIndexMap[entity];
+        size_t indexOfLastElement = mSize - 1;
+        mComponentArray[indexOfRemovedEntity] = mComponentArray[indexOfLastElement];
+        Entity entityOfLastElement = mIndexToEntityMap[indexOfLastElement];
+	    mEntityToIndexMap[entityOfLastElement] = indexOfRemovedEntity;
+	    mIndexToEntityMap[indexOfRemovedEntity] = entityOfLastElement;
+	    mEntityToIndexMap.erase(entity);
+	    mIndexToEntityMap.erase(indexOfLastElement);
+	    --mSize;
+    };
     T& GetData(Entity entity);
-    void EntityDestroyed(Entity entity) override;
+    void EntityDestroyed(Entity entity) override {
+    if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) {
+        RemoveData(entity);
+	};
+}
 private:
     std::array<T, MAX_ENTITIES> mComponentArray;
     std::unordered_map<Entity, size_t> mEntityToIndexMap;
@@ -56,8 +71,14 @@ private:
 
 class ComponentManager {
 public:
-    template<typename T>
-    void RegisterComponent();
+    template <typename T>
+    void RegisterComponent() {
+        const char* typeName = typeid(T).name();
+        //assert(mComponentTypes.find(typeName) == mComponentTypes.end() && "Registering component type more than once.");
+         mComponentTypes.insert({typeName, mNextComponentType});
+         mComponentArrays.insert({typeName, std::make_shared<ComponentArray<T>>()});
+        ++mNextComponentType;
+    };
     template<typename T>
     ComponentType GetComponentType();
     template<typename T>
@@ -105,8 +126,10 @@ public:
     void Init();
     Entity CreateEntity();
     void DestroyEntity(Entity entity);
-    template<typename T>
-    void RegisterComponent();
+    template <typename T>
+    void RegisterComponent() {
+        mComponentManager->RegisterComponent<T>();
+    };
     template<typename T>
     void AddComponent(Entity entity, T component);
     template<typename T>

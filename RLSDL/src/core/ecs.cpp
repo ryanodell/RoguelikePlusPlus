@@ -58,22 +58,22 @@ void ComponentArray<T>::InsertData(Entity entity, T component) {
     ++mSize;
 }
 
-template <typename T>
-void ComponentArray<T>::RemoveData(Entity entity) {
-    // if(mEntityToIndexMap.find(entity) == mEntityToIndexMap.end()) {
-    //     Logger::LogError("Component Added to the same entity more than once: EntityID: %u", entity);
-    //     CRASH_PROGRAM;
-    // }
-    size_t indexOfRemovedEntity = mEntityToIndexMap[entity];
-    size_t indexOfLastElement = mSize - 1;
-    mComponentArray[indexOfRemovedEntity] = mComponentArray[indexOfLastElement];
-    Entity entityOfLastElement = mIndexToEntityMap[indexOfLastElement];
-	mEntityToIndexMap[entityOfLastElement] = indexOfRemovedEntity;
-	mIndexToEntityMap[indexOfRemovedEntity] = entityOfLastElement;
-	mEntityToIndexMap.erase(entity);
-	mIndexToEntityMap.erase(indexOfLastElement);
-	--mSize;
-}
+// template <typename T>
+// void ComponentArray<T>::RemoveData(Entity entity) {
+//     // if(mEntityToIndexMap.find(entity) == mEntityToIndexMap.end()) {
+//     //     Logger::LogError("Component Added to the same entity more than once: EntityID: %u", entity);
+//     //     CRASH_PROGRAM;
+//     // }
+//     size_t indexOfRemovedEntity = mEntityToIndexMap[entity];
+//     size_t indexOfLastElement = mSize - 1;
+//     mComponentArray[indexOfRemovedEntity] = mComponentArray[indexOfLastElement];
+//     Entity entityOfLastElement = mIndexToEntityMap[indexOfLastElement];
+// 	mEntityToIndexMap[entityOfLastElement] = indexOfRemovedEntity;
+// 	mIndexToEntityMap[indexOfRemovedEntity] = entityOfLastElement;
+// 	mEntityToIndexMap.erase(entity);
+// 	mIndexToEntityMap.erase(indexOfLastElement);
+// 	--mSize;
+// }
 
 template <typename T>
 T &ComponentArray<T>::GetData(Entity entity) {
@@ -83,23 +83,23 @@ T &ComponentArray<T>::GetData(Entity entity) {
     return mComponentArray[mEntityToIndexMap[entity]];
 }
 
-template <typename T>
-void ComponentArray<T>::EntityDestroyed(Entity entity) {
-    if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) {
-        RemoveData(entity);
-	}
-}
+// template <typename T>
+// void ComponentArray<T>::EntityDestroyed(Entity entity) {
+//     if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) {
+//         RemoveData(entity);
+// 	}
+// }
 //////////////////////////////////////COMPONENT ARRAY////////////////////////////////////
 
 //////////////////////////////////////COMPONENT MANAGER////////////////////////////////////
-template <typename T>
-void ComponentManager::RegisterComponent() {
-    const char* typeName = typeid(T).name();
-    //assert(mComponentTypes.find(typeName) == mComponentTypes.end() && "Registering component type more than once.");
-     mComponentTypes.insert({typeName, mNextComponentType});
-     mComponentArrays.insert({typeName, std::make_shared<ComponentArray<T>>()});
-    ++mNextComponentType;
-}
+// template <typename T>
+// void ComponentManager::RegisterComponent() {
+//     const char* typeName = typeid(T).name();
+//     //assert(mComponentTypes.find(typeName) == mComponentTypes.end() && "Registering component type more than once.");
+//      mComponentTypes.insert({typeName, mNextComponentType});
+//      mComponentArrays.insert({typeName, std::make_shared<ComponentArray<T>>()});
+//     ++mNextComponentType;
+// }
 
 template <typename T>
 ComponentType ComponentManager::GetComponentType() {
@@ -187,10 +187,10 @@ void Coordinator::DestroyEntity(Entity entity) {
     mSystemManager->EntityDestroyed(entity);
 }
 
-template <typename T>
-void Coordinator::RegisterComponent() {
-    mComponentManager->RegisterComponent<T>();
-}
+// template <typename T>
+// void Coordinator::RegisterComponent() {
+//     mComponentManager->RegisterComponent<T>();
+// }
 
 template <typename T>
 void Coordinator::AddComponent(Entity entity, T component) {

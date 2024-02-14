@@ -1,5 +1,7 @@
 #include "backend.h"
 
+Coordinator gCoordinator;
+
 ///////////////////////////GAME////////////////////////////////////////
 Game::Game(int width, int height, const char* windowTitle) : 
             mWidth(width), 
@@ -36,6 +38,11 @@ bool Game::Init() {
 		Logger::LogError("SDL_Image could not be initialized. SDL_Image Error: %s\n", IMG_GetError());
         return false;
 	}
+    gCoordinator.Init();
+    //gCoordinator.RegisterComponent<Renderable>();
+    //gCoordinator.RegisterComponent<Camera>();
+    gCoordinator.RegisterComponent<Player>();
+
     return true;
 }
 
