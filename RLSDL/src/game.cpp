@@ -1,4 +1,5 @@
 #include "backend.h"
+#include "systems.h"
 
 Coordinator gCoordinator;
 
@@ -39,9 +40,11 @@ bool Game::Init() {
         return false;
 	}
     gCoordinator.Init();
-    //gCoordinator.RegisterComponent<Renderable>();
-    //gCoordinator.RegisterComponent<Camera>();
+    gCoordinator.RegisterComponent<Renderable>();
+    gCoordinator.RegisterComponent<Camera>();
     gCoordinator.RegisterComponent<Player>();
+
+    //gCoordinator.RegisterSystem<RenderSystem>();
 
     return true;
 }
