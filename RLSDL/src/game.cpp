@@ -44,7 +44,15 @@ bool Game::Init() {
     gCoordinator.RegisterComponent<Camera>();
     gCoordinator.RegisterComponent<Player>();
 
-    //gCoordinator.RegisterSystem<RenderSystem>();
+    auto renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
+    {
+        Signature signature;
+        signature.set(gCoordinator.GetComponentType<Renderable>());
+        signature.set(gCoordinator.GetComponentType<Camera>());
+        signature.set(gCoordinator.GetComponentType<Player>());
+        gCoordinator.SetSystemSignature<RenderSystem>(signature);
+    }
+    renderSystem->Init(mRenderer);
 
     return true;
 }
