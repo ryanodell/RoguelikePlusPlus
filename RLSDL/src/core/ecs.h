@@ -32,7 +32,7 @@ public:
 private:
     std::queue<Entity> mAvailableEntities;
     std::array<Signature, MAX_ENTITIES> mSignatures;
-    uint32_t mLivingEntityCount;
+    uint32_t mLivingEntityCount = 0;
 };
 
 class IComponentArray {
