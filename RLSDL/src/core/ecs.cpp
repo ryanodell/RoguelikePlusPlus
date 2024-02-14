@@ -45,18 +45,18 @@ void EntityManger::DestroyEntity(Entity entity) {
 
  //////////////////////////////////////COMPONENT ARRAY////////////////////////////////////
  ///NOTES: Guard clauses commented out until time to finish testing
-template <typename T>
-void ComponentArray<T>::InsertData(Entity entity, T component) {
-    // if(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) {
-    //     Logger::LogError("Component Added to the same entity more than once: EntityID: %u", entity);
-    //     CRASH_PROGRAM;
-    // }
-    size_t newIndex = mSize;
-    mEntityToIndexMap[entity] = newIndex;
-    mIndexToEntityMap[newIndex] = entity;
-    mComponentArray[newIndex] = component;
-    ++mSize;
-}
+// template <typename T>
+// void ComponentArray<T>::InsertData(Entity entity, T component) {
+//     // if(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) {
+//     //     Logger::LogError("Component Added to the same entity more than once: EntityID: %u", entity);
+//     //     CRASH_PROGRAM;
+//     // }
+//     size_t newIndex = mSize;
+//     mEntityToIndexMap[entity] = newIndex;
+//     mIndexToEntityMap[newIndex] = entity;
+//     mComponentArray[newIndex] = component;
+//     ++mSize;
+// }
 
 // template <typename T>
 // void ComponentArray<T>::RemoveData(Entity entity) {
@@ -75,13 +75,13 @@ void ComponentArray<T>::InsertData(Entity entity, T component) {
 // 	--mSize;
 // }
 
-template <typename T>
-T &ComponentArray<T>::GetData(Entity entity) {
-    // if(mEntityToIndexMap.find(entity) == mEntityToIndexMap.end()) {
-    //     Logger::LogError("Retrieving non-existent component.");
-    // }
-    return mComponentArray[mEntityToIndexMap[entity]];
-}
+// template <typename T>
+// T &ComponentArray<T>::GetData(Entity entity) {
+//     // if(mEntityToIndexMap.find(entity) == mEntityToIndexMap.end()) {
+//     //     Logger::LogError("Retrieving non-existent component.");
+//     // }
+//     return mComponentArray[mEntityToIndexMap[entity]];
+// }
 
 // template <typename T>
 // void ComponentArray<T>::EntityDestroyed(Entity entity) {
@@ -132,21 +132,21 @@ void ComponentManager::EntityDestroyed(Entity entity) {
 //////////////////////////////////////COMPONENT MANAGER////////////////////////////////////
 
 //////////////////////////////////////////SYSTEM///////////////////////////////////////////
-template <typename T>
-std::shared_ptr<T> SystemManger::RegisterSystem() {
-    const char* typeName = typeid(T).name();
-	//assert(mSystems.find(typeName) == mSystems.end() && "Registering system more than once.");
-	auto system = std::make_shared<T>();
-	mSystems.insert({typeName, system});
-	return system;
-}
+// template <typename T>
+// std::shared_ptr<T> SystemManger::RegisterSystem() {
+//     const char* typeName = typeid(T).name();
+// 	//assert(mSystems.find(typeName) == mSystems.end() && "Registering system more than once.");
+// 	auto system = std::make_shared<T>();
+// 	mSystems.insert({typeName, system});
+// 	return system;
+// }
 
-template <typename T>
-void SystemManger::SetSignature(Signature signature) {
-    const char* typeName = typeid(T).name();
-	//assert(mSystems.find(typeName) != mSystems.end() && "System used before registered.");
-	mSignatures.insert({typeName, signature});
-}
+// template <typename T>
+// void SystemManger::SetSignature(Signature signature) {
+//     const char* typeName = typeid(T).name();
+// 	//assert(mSystems.find(typeName) != mSystems.end() && "System used before registered.");
+// 	mSignatures.insert({typeName, signature});
+// }
 
 void SystemManger::EntityDestroyed(Entity entity) {
     for (auto const& pair : mSystems) {
@@ -192,41 +192,41 @@ void Coordinator::DestroyEntity(Entity entity) {
 //     mComponentManager->RegisterComponent<T>();
 // }
 
-template <typename T>
-void Coordinator::AddComponent(Entity entity, T component) {
-    mComponentManager->AddComponent<T>(entity, component);
-    auto signature = mEntityManager->GetSignature(entity);
-    signature.set(mComponentManager->GetComponentType<T>(), true);
-    mEntityManager->SetSignature(entity, signature);
-    mSystemManager->EntitySignatureChanged(entity, signature);
-}
+// template <typename T>
+// void Coordinator::AddComponent(Entity entity, T component) {
+//     mComponentManager->AddComponent<T>(entity, component);
+//     auto signature = mEntityManager->GetSignature(entity);
+//     signature.set(mComponentManager->GetComponentType<T>(), true);
+//     mEntityManager->SetSignature(entity, signature);
+//     mSystemManager->EntitySignatureChanged(entity, signature);
+// }
 
-template <typename T>
-void Coordinator::RemoveComponent(Entity entity) {
-    mComponentManager->RemoveComponent<T>(entity);
-    auto signature = mEntityManager->GetSignature(entity);
-    signature.set(mComponentManager->GetComponentType<T>(), false);
-	mEntityManager->SetSignature(entity, signature);
-	mSystemManager->EntitySignatureChanged(entity, signature);
-}
+// template <typename T>
+// void Coordinator::RemoveComponent(Entity entity) {
+//     mComponentManager->RemoveComponent<T>(entity);
+//     auto signature = mEntityManager->GetSignature(entity);
+//     signature.set(mComponentManager->GetComponentType<T>(), false);
+// 	mEntityManager->SetSignature(entity, signature);
+// 	mSystemManager->EntitySignatureChanged(entity, signature);
+// }
 
-template <typename T>
-T &Coordinator::GetComponent(Entity entity) {
-    return mComponentManager->GetComponent<T>(entity);
-}
+// template <typename T>
+// T &Coordinator::GetComponent(Entity entity) {
+//     return mComponentManager->GetComponent<T>(entity);
+// }
 
-template <typename T>
-ComponentType Coordinator::GetComponentType() {
-    return mComponentManager->GetComponentType<T>();
-}
+// template <typename T>
+// ComponentType Coordinator::GetComponentType() {
+//     return mComponentManager->GetComponentType<T>();
+// }
 
-template <typename T>
-std::shared_ptr<T> Coordinator::RegisterSystem() {
-    return mSystemManager->RegisterSystem<T>();
-}
+// template <typename T>
+// std::shared_ptr<T> Coordinator::RegisterSystem() {
+//     return mSystemManager->RegisterSystem<T>();
+// }
 
-template <typename T>
-void Coordinator::SetSystemSignature(Signature signature) {
-    mSystemManager->SetSignature<T>(signature);
-}
+// template <typename T>
+// void Coordinator::SetSystemSignature(Signature signature) {
+//     mSystemManager->SetSignature<T>(signature);
+// }
 //////////////////////////////////////COORDINATOR//////////////////////////////////////////

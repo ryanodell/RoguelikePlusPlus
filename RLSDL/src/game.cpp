@@ -44,7 +44,7 @@ bool Game::Init() {
     gCoordinator.RegisterComponent<Camera>();
     gCoordinator.RegisterComponent<Player>();
 
-    //gCoordinator.RegisterSystem<RenderSystem>();
+    gCoordinator.RegisterSystem<RenderSystem>();
 
     return true;
 }
