@@ -82,6 +82,7 @@ public:
 
 class SpriteBatch {
 public:
+    SpriteBatch() {} ;
     SpriteBatch(SDL_Renderer* renderer, size_t batchSize = 500);
     ~SpriteBatch();
     void Begin(const Camera2D &cam);

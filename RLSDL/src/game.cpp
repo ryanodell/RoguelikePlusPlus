@@ -17,6 +17,9 @@ Game::~Game() {
     IMG_Quit();
     SDL_Quit();
 }
+
+static std::shared_ptr<RenderSystem> renderSystem;
+
 bool Game::Init() {
     if(SDL_Init(SDL_INIT_VIDEO) < 0) {
         Logger::LogError("There was an error initializing SDL || SDL_Error: %s\n", SDL_GetError());
@@ -44,7 +47,7 @@ bool Game::Init() {
     gCoordinator.RegisterComponent<Camera>();
     gCoordinator.RegisterComponent<Player>();
 
-    auto renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
+    renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
     {
         Signature signature;
         signature.set(gCoordinator.GetComponentType<Renderable>());
@@ -62,14 +65,26 @@ void Game::Run() {
     TextureManager textureManager;
     textureManager.Init(mRenderer);
     Texture2D* tex = textureManager.LoadTexture("../assets/curses_square_16x16.png");
+    float tileSize = 16;
+     SDL_Rect grassRect { 5 * tileSize, 0, tileSize, tileSize };
+    int cols = 25;
+    int rows = 15;
+    for(int y = 0; y < rows; y++) {
+        for(int x = 0; x < cols; x++) {
+            Entity tmp = gCoordinator.CreateEntity();
+            gCoordinator.AddComponent(tmp, Renderable{
+                .Position = Vec2(), 
+                .SourceRectangle = grassRect,
+                .Color = Vec4()
+            });
+        }
+    }
+
     bool quit = false;
 	SDL_Event e;
     Vector2D position = Vector2D(16, 32);
     float scale = 2.5f;
-    float tileSize = 16;
-    SDL_Rect grassRect { 5 * tileSize, 0, tileSize, tileSize };
-    int cols = 25;
-    int rows = 15;
+   
     Vector2D tile1 = Vector2D(0 * tileSize, 0 * tileSize);
     Vector2D tile2 = Vector2D(1 * tileSize, 0 * tileSize);
     Vector2D tile3 = Vector2D(2 * tileSize, 0 * tileSize);
@@ -98,24 +113,25 @@ void Game::Run() {
 				}
 			}        
 		}
-        SDL_RenderClear(mRenderer);
-        SDL_Rect playerRect { 16, 0, 16, 16 };
-        SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
-        SDL_Color color = { 225, 255, 225 };
-        SDL_Color grassColor = { 150, 160, 24 };
+        renderSystem->Update(0.0f);
+        // SDL_RenderClear(mRenderer);
+        // SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
+        //SDL_Rect playerRect { 16, 0, 16, 16 };
+        //SDL_Color color = { 225, 255, 225 };
+        //SDL_Color grassColor = { 150, 160, 24 };
         
-        spriteBatch.Begin();
-        for(int y = 0; y < rows; y++) {
-            for(int x = 0; x < cols; x++) {
-                if(position.X == x * tileSize && position.Y == y * tileSize) {
-                    continue;;
-                }
-                spriteBatch.Draw(tex, Vector2D(x * tileSize, y * tileSize), grassRect, grassColor);
-            }
-        }
-        spriteBatch.Draw(tex, position, playerRect, color);
-        spriteBatch.End();        
-		SDL_RenderPresent(mRenderer);
+        // spriteBatch.Begin();
+        // for(int y = 0; y < rows; y++) {
+        //     for(int x = 0; x < cols; x++) {
+        //         if(position.X == x * tileSize && position.Y == y * tileSize) {
+        //             continue;;
+        //         }
+        //         spriteBatch.Draw(tex, Vector2D(x * tileSize, y * tileSize), grassRect, grassColor);
+        //     }
+        // }
+        // spriteBatch.Draw(tex, position, playerRect, color);
+        // spriteBatch.End();        
+		// SDL_RenderPresent(mRenderer);
 	}
 }
 ///////////////////////////END GAME////////////////////////////////////////

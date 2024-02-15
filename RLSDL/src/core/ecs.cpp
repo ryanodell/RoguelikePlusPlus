@@ -65,6 +65,7 @@ void SystemManger::EntitySignatureChanged(Entity entity, Signature entitySignatu
 		auto const& type = pair.first;
 		auto const& system = pair.second;
 		auto const& systemSignature = mSignatures[type];
+        //The issue is here - Search Here
 		if ((entitySignature & systemSignature) == systemSignature) {
 			system->mEntities.insert(entity);
 		} else {

@@ -11,6 +11,7 @@ public:
 private:
     Entity mCamera;
     SDL_Renderer* mRenderer;
+    SpriteBatch mSpriteBatch;
 };
 
 
