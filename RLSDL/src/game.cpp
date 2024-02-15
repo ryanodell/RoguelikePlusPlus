@@ -51,8 +51,8 @@ bool Game::Init() {
     {
         Signature signature;
         signature.set(gCoordinator.GetComponentType<Renderable>());
-        signature.set(gCoordinator.GetComponentType<Camera>());
-        signature.set(gCoordinator.GetComponentType<Player>());
+        // signature.set(gCoordinator.GetComponentType<Camera>());
+        // signature.set(gCoordinator.GetComponentType<Player>());
         gCoordinator.SetSystemSignature<RenderSystem>(signature);
     }
     renderSystem->Init(mRenderer);

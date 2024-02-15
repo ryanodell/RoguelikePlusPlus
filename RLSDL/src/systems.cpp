@@ -17,7 +17,7 @@ void RenderSystem::Update(float dt) {
     SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
     mSpriteBatch.Begin();
     for (auto const& entity : mEntities) {
-        Logger::LogInfo("Here");
+        
     }
     mSpriteBatch.End();
     SDL_RenderPresent(mRenderer);
