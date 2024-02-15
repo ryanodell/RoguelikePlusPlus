@@ -1,5 +1,6 @@
 #include "backend.h"
 #include "systems.h"
+#include "math/vecs.h"
 
 Coordinator gCoordinator;
 
@@ -61,7 +62,6 @@ bool Game::Init() {
 }
 
 void Game::Run() {
-    SpriteBatch spriteBatch = SpriteBatch(mRenderer);
     TextureManager textureManager;
     textureManager.Init(mRenderer);
     Texture2D* tex = textureManager.LoadTexture("../assets/curses_square_16x16.png");
@@ -71,27 +71,18 @@ void Game::Run() {
     int rows = 15;
     for(int y = 0; y < rows; y++) {
         for(int x = 0; x < cols; x++) {
-            Entity tmp = gCoordinator.CreateEntity();
-            gCoordinator.AddComponent(tmp, Renderable{
-                .Position = Vec2(), 
+            //Entity tmp = gCoordinator.CreateEntity();
+            gCoordinator.AddComponent(gCoordinator.CreateEntity(), Renderable{
+                .Texture = tex,
+                .Position =  Vec2(x * tileSize, y * tileSize), 
                 .SourceRectangle = grassRect,
-                .Color = Vec4()
+                .Color = Vec4(255, 255, 255, 0)
             });
         }
     }
 
     bool quit = false;
 	SDL_Event e;
-    Vector2D position = Vector2D(16, 32);
-    float scale = 2.5f;
-   
-    Vector2D tile1 = Vector2D(0 * tileSize, 0 * tileSize);
-    Vector2D tile2 = Vector2D(1 * tileSize, 0 * tileSize);
-    Vector2D tile3 = Vector2D(2 * tileSize, 0 * tileSize);
-
-    Vector2D tile4 = Vector2D(0 * tileSize, 1 * tileSize);
-    Vector2D tile5 = Vector2D(0 * tileSize, 2 * tileSize);
-    Vector2D tile6 = Vector2D(0 * tileSize, 3 * tileSize);
 	while( !quit ) {
 		while( SDL_PollEvent( &e ) != 0 ) {
 			if( e.type == SDL_QUIT ) {
@@ -99,39 +90,21 @@ void Game::Run() {
 			} else if(e.type == SDL_KEYDOWN) {
 				switch(e.key.keysym.sym) {
 					case SDLK_w:
-					position.Y -= 16;
+					//position.Y -= 16;
 					break;
 					case SDLK_a:
-					position.X -= 16;
+					//position.X -= 16;
 					break;
 					case SDLK_s:
-					position.Y += 16;
+					//position.Y += 16;
 					break;
 					case SDLK_d:
-					position.X += 16;
+					//position.X += 16;
 					break;
 				}
 			}        
 		}
         renderSystem->Update(0.0f);
-        // SDL_RenderClear(mRenderer);
-        // SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
-        //SDL_Rect playerRect { 16, 0, 16, 16 };
-        //SDL_Color color = { 225, 255, 225 };
-        //SDL_Color grassColor = { 150, 160, 24 };
-        
-        // spriteBatch.Begin();
-        // for(int y = 0; y < rows; y++) {
-        //     for(int x = 0; x < cols; x++) {
-        //         if(position.X == x * tileSize && position.Y == y * tileSize) {
-        //             continue;;
-        //         }
-        //         spriteBatch.Draw(tex, Vector2D(x * tileSize, y * tileSize), grassRect, grassColor);
-        //     }
-        // }
-        // spriteBatch.Draw(tex, position, playerRect, color);
-        // spriteBatch.End();        
-		// SDL_RenderPresent(mRenderer);
 	}
 }
 ///////////////////////////END GAME////////////////////////////////////////

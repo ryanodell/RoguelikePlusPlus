@@ -4,8 +4,10 @@
 #include "backend.h"
 #include "math/vecs.h"
 
+class Texture2D;
+
 struct Renderable {    
-    //Texture2D* Texture;
+    Texture2D* Texture;
     Vec2 Position;
     SDL_Rect SourceRectangle;
     Vec4 Color;
