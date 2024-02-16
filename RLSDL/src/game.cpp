@@ -20,6 +20,7 @@ Game::~Game() {
 }
 
 static std::shared_ptr<RenderSystem> renderSystem;
+static std::shared_ptr<PlayerControlSystem> playerControlSystem;
 
 bool Game::Init() {
     if(SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -48,6 +49,15 @@ bool Game::Init() {
     gCoordinator.RegisterComponent<Camera>();
     gCoordinator.RegisterComponent<Player>();
 
+    playerControlSystem = gCoordinator.RegisterSystem<PlayerControlSystem>();
+    {
+        Signature signature;
+        signature.set(gCoordinator.GetComponentType<Renderable>());        
+        signature.set(gCoordinator.GetComponentType<Player>());
+        gCoordinator.SetSystemSignature<PlayerControlSystem>(signature);
+    }
+    playerControlSystem->Init();
+
     renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
     {
         Signature signature;
@@ -67,11 +77,10 @@ void Game::Run() {
     Texture2D* tex = textureManager.LoadTexture("../assets/curses_square_16x16.png");
     float tileSize = 16;
      SDL_Rect grassRect { 5 * tileSize, 0, tileSize, tileSize };
-    int cols = 25;
-    int rows = 15;
+    int cols = 35;
+    int rows = 25;
     for(int y = 0; y < rows; y++) {
         for(int x = 0; x < cols; x++) {
-            //Entity tmp = gCoordinator.CreateEntity();
             gCoordinator.AddComponent(gCoordinator.CreateEntity(), Renderable{
                 .Texture = tex,
                 .Position =  Vec2(x * tileSize, y * tileSize), 
@@ -82,28 +91,29 @@ void Game::Run() {
     }
 
     bool quit = false;
-	SDL_Event e;
+	//SDL_Event e;
 	while( !quit ) {
-		while( SDL_PollEvent( &e ) != 0 ) {
-			if( e.type == SDL_QUIT ) {
-				quit = true;
-			} else if(e.type == SDL_KEYDOWN) {
-				switch(e.key.keysym.sym) {
-					case SDLK_w:
-					//position.Y -= 16;
-					break;
-					case SDLK_a:
-					//position.X -= 16;
-					break;
-					case SDLK_s:
-					//position.Y += 16;
-					break;
-					case SDLK_d:
-					//position.X += 16;
-					break;
-				}
-			}        
-		}
+		// while( SDL_PollEvent( &e ) != 0 ) {
+		// 	if( e.type == SDL_QUIT ) {
+		// 		quit = true;
+		// 	} else if(e.type == SDL_KEYDOWN) {
+		// 		switch(e.key.keysym.sym) {
+		// 			case SDLK_w:
+		// 			//position.Y -= 16;
+		// 			break;
+		// 			case SDLK_a:
+		// 			//position.X -= 16;
+		// 			break;
+		// 			case SDLK_s:
+		// 			//position.Y += 16;
+		// 			break;
+		// 			case SDLK_d:
+		// 			//position.X += 16;
+		// 			break;
+		// 		}
+		// 	}        
+		// }
+        playerControlSystem->Update(0.0f);
         renderSystem->Update(0.0f);
 	}
 }

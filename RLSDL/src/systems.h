@@ -13,5 +13,13 @@ private:
     SDL_Renderer* mRenderer;
 };
 
+class PlayerControlSystem : public System {
+public:
+    void Init();
+    void Update(float dt);
+private:
+
+};
+
 
 #endif

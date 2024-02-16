@@ -4,12 +4,7 @@ extern Coordinator gCoordinator;
 
 void RenderSystem::Init(SDL_Renderer* renderer) {
     mRenderer = renderer;
-    // gCoordinator.AddComponent(mCamera, Camera {
-    //     .Position = Vec2(),
-    //     .Zoom = 1.0f
-    // });
 }
-
 
 void RenderSystem::Update(float dt) {
     SDL_Color grassColor = { 150, 160, 24 };
@@ -25,3 +20,32 @@ void RenderSystem::Update(float dt) {
     SDL_RenderPresent(mRenderer);
 }
 /////////////////////////////////RENDER SYSTEM/////////////////////////
+
+void PlayerControlSystem::Init() {
+
+}
+
+void PlayerControlSystem::Update(float dt) {
+    SDL_Event e;
+    bool quit = false;
+    while( SDL_PollEvent( &e ) != 0 ) {
+		if( e.type == SDL_QUIT ) {
+			quit = true;
+		} else if(e.type == SDL_KEYDOWN) {
+			switch(e.key.keysym.sym) {
+				case SDLK_w:
+				//position.Y -= 16;
+				break;
+				case SDLK_a:
+				//position.X -= 16;
+				break;
+				case SDLK_s:
+				//position.Y += 16;
+				break;
+				case SDLK_d:
+				//position.X += 16;
+				break;
+			}
+		}        
+	}
+}
