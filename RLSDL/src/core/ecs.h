@@ -20,6 +20,8 @@ const int MAX_COMPONENTS = 32;
 using Signature = std::bitset<MAX_COMPONENTS>;
 using ComponentType = std::uint8_t;
 using Entity = std::uint32_t;
+using EventId = std::uint32_t;
+using ParamId = std::uint32_t;
 
 class EntityManger {
 public:
