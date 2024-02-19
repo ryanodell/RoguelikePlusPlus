@@ -1,12 +1,6 @@
 #ifndef BACKEND_H
 #define BACKEND_H
-#include <stdio.h>
-#include <assert.h>
-#include <vector>
-#include <unordered_map>
-#include <memory>
-#include <SDL.h>
-#include <SDL_image.h>
+#include "pch.h"
 #include "core/logger.h"
 #include "core/ecs.h"
 #include "components.h"
